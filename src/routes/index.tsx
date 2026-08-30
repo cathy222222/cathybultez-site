@@ -145,7 +145,8 @@ function SectionTitle({
         {eyebrow}
       </span>
       <h2 className="mt-3 font-display text-3xl font-medium leading-tight text-ink sm:text-4xl lg:text-5xl">
-        {title.split("\n").map((line, i) => (
+        {title.split("
+").map((line, i) => (
           <span key={i} className="block">
             {line}
           </span>
@@ -316,7 +317,8 @@ function Index() {
 
       {/* Approche */}
       <section id="approche" className="relative mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
-        <SectionTitle eyebrow="L'approche" title="Prendre soin de soi,\nen profondeur" />
+        <SectionTitle eyebrow="L'approche" title="Prendre soin de soi,
+en profondeur" />
         <div className="mt-12 grid gap-12 lg:grid-cols-[1.1fr_1fr]">
           <div>
             <p className="text-lg leading-relaxed text-ink/80">
@@ -386,7 +388,8 @@ function Index() {
       {/* Soins */}
       <section id="soins" className="bg-white">
         <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
-          <SectionTitle eyebrow="Les soins" title="Trois chapitres pour\nse reconnecter" />
+          <SectionTitle eyebrow="Les soins" title="Trois chapitres pour
+se reconnecter" />
 
           <div className="mt-16 space-y-24 sm:space-y-32">
             {/* Soin 1 */}
@@ -521,7 +524,8 @@ function Index() {
 
       {/* Réactions */}
       <section id="reactions" className="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
-        <SectionTitle eyebrow="Après un soin" title="Réactions éventuelles,\ntout est juste" />
+        <SectionTitle eyebrow="Après un soin" title="Réactions éventuelles,
+tout est juste" />
         <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-relaxed text-ink/80">
           Après un soin énergétique, certaines personnes continuent à ressentir des émotions ou des
           sensations pendant quelque temps. Ces réactions varient d'une personne à l'autre — et le
@@ -545,7 +549,8 @@ function Index() {
         <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
             <div className="order-2 lg:order-1">
-              <SectionTitle eyebrow="Qui suis-je ?" title="À propos de\nmoi" align="left" />
+              <SectionTitle eyebrow="Qui suis-je ?" title="À propos de
+moi" align="left" />
               <p className="mt-6 leading-relaxed text-ink/80">
                 Après une première vie professionnelle classique, j'ai choisi une reconversion
                 orientée vers l'accompagnement des autres. Mon parcours m'a progressivement conduite
@@ -586,7 +591,8 @@ function Index() {
 
       {/* Tarifs */}
       <section id="tarifs" className="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
-        <SectionTitle eyebrow="Tarifs" title="Tarifs &\nbons cadeaux" />
+        <SectionTitle eyebrow="Tarifs" title="Tarifs &
+bons cadeaux" />
         <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-sage">
           Tarifs au 01/01/2025 · +5 € pour les rendez-vous à l'extérieur du cabinet
         </p>
@@ -662,7 +668,8 @@ function Index() {
         <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
             <div>
-              <SectionTitle eyebrow="Contact" title="Contactez-\nmoi" align="left" />
+              <SectionTitle eyebrow="Contact" title="Contactez-
+moi" align="left" />
               <p className="mt-6 leading-relaxed text-ink/80">
                 Séances en présentiel ou en entreprise ; séances à distance possibles pour les soins
                 énergétiques et les accompagnements. Déplacements possibles chez les personnes
