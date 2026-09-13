@@ -1,78 +1,130 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import {
-  Phone,
-  Mail,
-  MapPin,
-  Clock,
-  Heart,
-  Sparkles,
-  Home,
-  ArrowRight,
-  Check,
-} from "lucide-react";
-
+import { useEffect, useRef } from "react";
+import { ArrowDown, Gift, Phone } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
-export const Route = createFileRoute("/")({
-  component: Index,
-  head: () => ({
-    meta: [
-      {
-        title: "Cathy Bultez — Thérapeute énergétique & Massothérapeute · Romeries",
-      },
-      {
-        name: "description",
-        content:
-          "Cathy Bultez, thérapeute énergétique et massothérapeute à Romeries. Accompagnement thérapeutique, massage des 5 Continents, massage assis Amma, tarifs et contact.",
-      },
-      {
-        property: "og:title",
-        content: "Cathy Bultez — Thérapeute énergétique & Massothérapeute · Romeries",
-      },
-      {
-        property: "og:description",
-        content:
-          "Accompagnement thérapeutique, massage des 5 Continents, massage assis Amma, magnétisme et soins énergétiques à Romeries.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
-});
-
-const unsplashImages = {
-  hero: "https://images.unsplash.com/photo-1600334129128-685c5582fd35?auto=format&fit=crop&w=1920&q=80",
-  soin1: "https://images.unsplash.com/photo-1639162906614-0603b0ae95fd?auto=format&fit=crop&w=800&q=80",
-  soin2: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=800&q=80",
-  soin3: "https://images.unsplash.com/photo-1598901986949-f593ff2a31a6?auto=format&fit=crop&w=800&q=80",
-  portrait: "https://images.unsplash.com/photo-1622352607117-88f6089aa418?auto=format&fit=crop&w=800&q=80",
+const IMAGES = {
+  massage:
+    "https://images.unsplash.com/photo-1598901986949-f593ff2a31a6?auto=format&fit=crop&w=1600&q=80",
+  stones:
+    "https://images.pexels.com/photos/34279942/pexels-photo-34279942.jpeg?auto=compress&cs=tinysrgb&w=1600",
+  silhouette:
+    "https://images.unsplash.com/photo-1461468611824-46457c0e11fd?auto=format&fit=crop&w=1600&q=80",
 };
 
-const concerns = [
+const marqueeWords = [
+  "Bien-être",
+  "Lâcher-prise",
+  "Énergie",
+  "Sérénité",
+  "Harmonie corporelle",
+];
+
+const motifs = [
   "Fatigue",
   "Stress",
   "Angoisses",
   "Anxiété",
-  "Troubles du sommeil",
+  "Dépression",
+  "Burn out",
+  "Insomnies",
+  "Traumatismes physiques & psychiques",
   "Deuil",
   "Addictions",
-  "Manque de confiance",
+  "Manque de concentration",
+  "Manque de confiance en soi",
   "Douleurs corporelles",
-  "Traumatismes",
-  "Vécu de la maladie",
+  "Trauma corporel",
+  "Accompagnement de la maladie",
+  "Accompagnement spirituel en fin de vie",
+];
+
+type Soin = {
+  num: string;
+  title: string;
+  description: string;
+  extra?: { label: string; text: string }[];
+  meta: { label: string; value: string }[];
+};
+
+const soins: Soin[] = [
+  {
+    num: "01",
+    title: "Accompagnement thérapeutique",
+    description:
+      "Une thérapie demande généralement plusieurs séances, selon votre besoin et votre évolution. Selon les situations, différents outils peuvent être mobilisés : libération par la parole, rééquilibrage énergétique, travail sur la mémoire, approches transgénérationnelle, karmique ou prénatale, sophronisation thérapeutique, bol chantant tibétain, tambour… Chaque séance est une parenthèse : un temps pour déposer les tensions, apaiser le mental et relancer la circulation de l'énergie vitale.",
+    meta: [
+      { label: "Durée", value: "1 h 30" },
+      { label: "Prix", value: "60 €" },
+      { label: "Lieu", value: "À distance ou en présentiel au cabinet de Romeries" },
+    ],
+  },
+  {
+    num: "02",
+    title: "Soin d'urgence à distance",
+    description:
+      "Un soin énergétique proposé à distance pour accompagner les situations d'urgence, notamment les douleurs ou les crises d'angoisse.",
+    meta: [
+      { label: "Prix", value: "40 €" },
+      { label: "Lieu", value: "À distance" },
+    ],
+  },
+  {
+    num: "03",
+    title: "Massage Énergétique Intuitif du Corps",
+    description:
+      "Un massage personnalisé qui associe l'écoute du corps, le toucher et l'intuition. Chaque séance est adaptée à la personne et à ses besoins du moment — une démarche favorisant le lâcher-prise, la reconnexion à soi et la libération des tensions émotionnelles.",
+    extra: [
+      {
+        label: "Avant la séance",
+        text: "Arrivez détendu·e, prenez une douche ou un bain, évitez de crémer le corps et de trop manger juste avant.",
+      },
+      {
+        label: "Déroulement",
+        text: "Les zones non massées restent couvertes, les sous-vêtements sont conservés. Le massage concerne le dos, le ventre, les jambes, les bras et la tête.",
+      },
+      {
+        label: "Précautions",
+        text: "Grossesse et allaitement, épilepsie, cancers hormono-dépendants, certains traitements, problèmes cutanés, hypersensibilité, enfants de moins de 10 ans.",
+      },
+      {
+        label: "Huiles de massage",
+        text: "2 choix possibles contenant des huiles essentielles (huile végétale neutre possible en cas d'allergie, à signaler à la prise de rendez-vous). Option huiles issues du Massage Énergétique des 5 Continents : 85 € en cabinet, 90 € en extérieur — jusqu'à épuisement des stocks.",
+      },
+    ],
+    meta: [
+      { label: "Durée", value: "1 h 30" },
+      { label: "Prix", value: "80 € · Cabinet de Romeries" },
+      { label: "Prix", value: "85 € · Extérieur SPA, établissements" },
+    ],
+  },
+  {
+    num: "04",
+    title: "Massage Assis Énergétique Intuitif",
+    description:
+      "Reçu habillé, en position assise sur une chaise ergonomique conçue à cette fin. Il s'effectue au niveau des épaules, du dos, de la nuque, des hanches, des bras, des mains et de la tête. Apaisant et profondément relaxant, il rééquilibre le corps, améliore la circulation, soulage les tensions nerveuses et dynamise l'organisme tout entier. Il stimule les méridiens d'acupuncture et aide à soulager les affections causées par le stress : maux de dos, migraines, épuisement, insomnies…",
+    meta: [
+      { label: "Durée", value: "45 mn" },
+      { label: "Prix", value: "45 € · Cabinet de Romeries" },
+      { label: "Extérieur", value: "Me consulter" },
+      {
+        label: "Options",
+        value: "Temps réduits possibles (15, 20, 30 mn) — entreprises, CE, institutions, résidences seniors",
+      },
+      { label: "À domicile", value: "Déplacement possible chez les personnes âgées" },
+    ],
+  },
+  {
+    num: "05",
+    title: "Nettoyage énergétique de lieux",
+    description:
+      "Les lieux et les bâtiments ont des mémoires, liées aux habitants, à l'histoire des lieux ou à l'environnement — générant parfois des blocages : difficultés à vendre, disputes, problèmes de sommeil ou de santé. Un nettoyage énergétique élimine entités, mauvaises énergies et mémoires pour remettre de belles énergies et protections. Je conseille toujours un nettoyage avant d'emménager dans une nouvelle maison.",
+    meta: [
+      { label: "Prestation", value: "À distance" },
+      { label: "Prix", value: "Sur devis" },
+    ],
+  },
 ];
 
 const reactions = [
@@ -98,626 +150,475 @@ const reactions = [
   },
   {
     title: "Pas de sensation",
-    text: "Chaque sensibilité est différente : ne presque rien ressentir pendant la séance est possible.",
+    text: "Chaque personne ayant une sensibilité différente, l'absence de sensation pendant la séance est possible.",
   },
 ];
 
 const formations = [
-  "Psycho Sophro Énergétique",
+  "Psycho-Sophrologue",
+  "Énergétique",
   "Massage des 5 Continents",
   "Massage Métamorphique",
   "Massage Assis Amma",
 ];
 
-function Marquee() {
-  const items = [
-    "Soins énergétiques",
-    "Massage des 5 Continents",
-    "Massage assis Amma",
-    "Magnétisme — personnes & animaux",
-    "Accompagnement à distance",
-    "Lâcher-prise",
-    "Reconnexion à soi",
-  ];
-  const content = items.join(" ✤ ");
-  return (
-    <div className="overflow-hidden border-y border-line bg-creamdark py-5">
-      <div className="flex w-max animate-marquee items-center gap-10 whitespace-nowrap px-5 text-sm font-medium tracking-wide text-sage">
-        <span>{content} ✤ </span>
-        <span>{content} ✤ </span>
-      </div>
-    </div>
-  );
-}
-
-function SectionTitle({
-  eyebrow,
-  title,
-  align = "center",
-}: {
-  eyebrow: string;
-  title: string;
-  align?: "left" | "center";
-}) {
-  return (
-    <div className={`${align === "center" ? "text-center" : "text-left"}`}>
-      <span className="text-xs font-semibold uppercase tracking-widest text-gold">
-        {eyebrow}
-      </span>
-      <h2 className="mt-3 font-display text-3xl font-medium leading-tight text-ink sm:text-4xl lg:text-5xl whitespace-pre-line">
-        {title}
-      </h2>
-    </div>
-  );
-}
-
-function ContactForm() {
-  const [submitted, setSubmitted] = useState(false);
-
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
-
-  if (submitted) {
-    return (
-      <div className="rounded-3xl border border-goldline bg-cream p-8 text-center sm:p-12">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-sagelight text-sage">
-          <Check className="h-6 w-6" />
-        </div>
-        <h3 className="mt-6 text-xl font-semibold text-ink">Message envoyé</h3>
-        <p className="mt-2 text-sage">
-          Merci pour votre message. Je vous recontacte dans les plus brefs délais.
-        </p>
-      </div>
+function useReveal() {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const root = ref.current ?? document;
+    const els = Array.from(root.querySelectorAll(".reveal"));
+    if (!("IntersectionObserver" in window)) {
+      els.forEach((el) => el.classList.add("is-visible"));
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            io.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.12 },
     );
-  }
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+  return ref;
+}
 
+function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <form onSubmit={onSubmit} className="space-y-5">
-      <div className="grid gap-5 sm:grid-cols-2">
-        <div className="space-y-2">
-          <Label htmlFor="nom" className="text-ink">
-            Nom <span className="text-gold">*</span>
-          </Label>
-          <Input
-            id="nom"
-            name="nom"
-            required
-            placeholder="Votre nom"
-            className="rounded-xl border-line bg-cream focus-visible:ring-gold"
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="email" className="text-ink">
-            Email <span className="text-gold">*</span>
-          </Label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            required
-            placeholder="votre@email.com"
-            className="rounded-xl border-line bg-cream focus-visible:ring-gold"
-          />
-        </div>
-      </div>
-
-      <div className="grid gap-5 sm:grid-cols-2">
-        <div className="space-y-2">
-          <Label htmlFor="telephone" className="text-ink">
-            Téléphone
-          </Label>
-          <Input
-            id="telephone"
-            name="telephone"
-            type="tel"
-            placeholder="06 00 00 00 00"
-            className="rounded-xl border-line bg-cream focus-visible:ring-gold"
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="prestation" className="text-ink">
-            Prestation
-          </Label>
-          <Select name="prestation">
-            <SelectTrigger className="rounded-xl border-line bg-cream focus:ring-gold">
-              <SelectValue placeholder="Choisir…" />
-            </SelectTrigger>
-            <SelectContent className="rounded-xl border-line bg-cream">
-              <SelectItem value="accompagnement">Accompagnement thérapeutique</SelectItem>
-              <SelectItem value="massage-5-continents">Massage des 5 Continents</SelectItem>
-              <SelectItem value="massage-amma">Massage assis Amma</SelectItem>
-              <SelectItem value="bon-cadeau">Bon cadeau</SelectItem>
-              <SelectItem value="autre">Autre demande</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="message" className="text-ink">
-          Message <span className="text-gold">*</span>
-        </Label>
-        <Textarea
-          id="message"
-          name="message"
-          required
-          rows={5}
-          placeholder="Décrivez votre demande…"
-          className="rounded-xl border-line bg-cream focus-visible:ring-gold"
-        />
-      </div>
-
-      <Button
-        type="submit"
-        className="w-full rounded-full bg-gold py-6 text-base font-medium text-ink hover:bg-gold/90"
-      >
-        Envoyer mon message
-      </Button>
-    </form>
+    <p className="reveal flex items-center justify-center gap-3 text-[13px] font-semibold uppercase tracking-[0.3em] text-gold">
+      <span className="h-px w-8 bg-gold/60" />
+      {children}
+      <span className="h-px w-8 bg-gold/60" />
+    </p>
   );
 }
 
-function Index() {
+export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Cathy Bultez — Thérapeute Énergétique · Massothérapeute à Romeries" },
+      {
+        name: "description",
+        content:
+          "Cathy Bultez vous guide sur la voie du bien-être à Romeries : accompagnement thérapeutique, massages énergétiques intuitifs, soins à distance et bons cadeaux.",
+      },
+      { property: "og:title", content: "Cathy Bultez — Thérapeute Énergétique · Massothérapeute à Romeries" },
+      {
+        property: "og:description",
+        content:
+          "Libérer les émotions, rééquilibrer les énergies, retrouver la paix intérieure. Soins au cabinet de Romeries, à domicile ou à distance.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: IMAGES.massage },
+      { name: "twitter:image", content: IMAGES.massage },
+    ],
+  }),
+  component: HomePage,
+});
+
+function HomePage() {
+  const pageRef = useReveal();
+
   return (
-    <div className="min-h-screen bg-cream text-ink">
+    <div ref={pageRef} className="min-h-screen bg-cream text-ink">
       <Header />
 
-      {/* Hero */}
-      <section className="relative flex min-h-screen items-center overflow-hidden">
+      {/* ============ HERO ============ */}
+      <section className="relative flex min-h-screen flex-col justify-between overflow-hidden">
         <div className="absolute inset-0">
-          <img
-            src={unsplashImages.hero}
-            alt="Ambiance spa et pierres de bien-être"
-            className="h-[120%] w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-cream/45 via-cream/20 to-cream" />
+          <div className="absolute inset-0 bg-gradient-to-b from-creamsoft via-cream to-cream" />
+          <div className="absolute -right-32 top-24 h-[32rem] w-[32rem] rounded-full bg-sanddeep/40 blur-3xl" />
+          <div className="absolute -left-40 bottom-10 h-[26rem] w-[26rem] rounded-full bg-sand/70 blur-3xl" />
         </div>
-        <div className="pointer-events-none absolute -left-32 top-1/3 h-96 w-96 rounded-full bg-gold/20 blur-[120px]" />
-        <div className="pointer-events-none absolute -right-24 bottom-16 h-80 w-80 rounded-full bg-sage/25 blur-[110px]" />
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-24 pt-40 sm:px-8">
-          <div className="max-w-3xl">
-            <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-goldline bg-white/60 px-4 py-2 backdrop-blur-sm">
-              <MapPin className="h-4 w-4 text-sage" />
-              <span className="text-sm font-medium text-ink">Romeries · Hauts-de-France</span>
-            </div>
-            <h1 className="font-display text-4xl font-medium leading-[1.1] text-ink sm:text-6xl lg:text-7xl">
-              Thérapeute énergétique <span className="text-sage">&</span> massothérapeute
-            </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink/80 sm:text-xl">
-              Je vous accompagne vers l'apaisement du corps et de l'esprit — au cabinet, à domicile
-              ou à distance.
+        <div className="relative flex flex-1 flex-col justify-between">
+          <div className="mx-auto w-full max-w-7xl px-6 pt-32 text-center sm:pt-36 lg:px-12 lg:pt-44">
+            <p className="text-[12px] font-semibold uppercase tracking-[0.35em] text-ink/60 sm:text-[13px]">
+              Thérapeute Énergétique · Massothérapeute
             </p>
-            <div className="mt-10 flex flex-wrap items-center gap-4">
-              <a
-                href="#contact"
-                className="inline-flex items-center justify-center rounded-full bg-gold px-7 py-3.5 text-sm font-medium text-ink transition-colors hover:bg-gold/90"
-              >
-                Réserver un soin
-              </a>
-              <a
-                href="#soins"
-                className="inline-flex items-center justify-center rounded-full border border-line bg-cream/60 px-7 py-3.5 text-sm font-medium text-ink backdrop-blur-sm transition-colors hover:bg-creamdark"
-              >
-                Découvrir les soins
-              </a>
-            </div>
+            <h1 className="mt-6 font-display text-[20vw] font-light leading-[0.9] tracking-tighter text-ink sm:text-[15vw] lg:text-[10.5rem]">
+              Cathy
+              <br />
+              <span className="italic text-gold">Bultez</span>
+            </h1>
+            <p className="mx-auto mt-10 max-w-xl text-base font-light leading-relaxed text-inkmuted sm:text-lg">
+              Vous guider sur la voie du bien-être — libérer les émotions,
+              rééquilibrer les énergies, retrouver la paix intérieure.
+            </p>
+          </div>
+
+          <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-10 px-6 pb-10 lg:px-12">
+            <blockquote className="hidden max-w-md text-center sm:block">
+              <p className="font-display text-lg font-light italic leading-relaxed text-ink/70">
+                « Les maux du corps sont les mots de l'âme. Ainsi on ne doit
+                pas guérir le corps sans chercher à guérir l'âme. »
+              </p>
+              <cite className="mt-3 block text-xs font-semibold uppercase tracking-[0.25em] not-italic text-gold">
+                — Platon
+              </cite>
+            </blockquote>
+            <a
+              href="#approche"
+              className="group flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-ink/60 transition-colors hover:text-ink"
+            >
+              Découvrir
+              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-ink/20 transition-all duration-300 group-hover:border-gold group-hover:bg-gold group-hover:text-cream">
+                <ArrowDown className="h-4 w-4 animate-bounce" />
+              </span>
+            </a>
           </div>
         </div>
-      </section>
 
-      <Marquee />
-
-      {/* Approche */}
-      <section id="approche" className="relative mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
-        <SectionTitle eyebrow="L'approche" title={`Prendre soin de soi,\nen profondeur`} />
-        <div className="mt-12 grid gap-12 lg:grid-cols-[1.1fr_1fr]">
-          <div>
-            <p className="text-lg leading-relaxed text-ink/80">
-              Les consultations peuvent concerner des difficultés physiques ou émotionnelles et se
-              dérouler au cabinet, à domicile ou à distance selon la prestation.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-2.5">
-              {concerns.map((item) => (
+        {/* Marquee */}
+        <div className="relative border-t border-ink/10 py-5">
+          <div className="flex overflow-hidden">
+            <div className="animate-marquee flex shrink-0 items-center">
+              {[...marqueeWords, ...marqueeWords].map((word, i) => (
                 <span
-                  key={item}
-                  className="rounded-full border border-line bg-cream px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-goldline"
+                  key={i}
+                  className="flex items-center gap-8 pr-8 font-display text-2xl font-light italic text-ink/50"
                 >
-                  {item}
+                  {word}
+                  <span className="text-gold">✦</span>
+                </span>
+              ))}
+            </div>
+            <div className="animate-marquee flex shrink-0 items-center" aria-hidden>
+              {[...marqueeWords, ...marqueeWords].map((word, i) => (
+                <span
+                  key={i}
+                  className="flex items-center gap-8 pr-8 font-display text-2xl font-light italic text-ink/50"
+                >
+                  {word}
+                  <span className="text-gold">✦</span>
                 </span>
               ))}
             </div>
           </div>
-          <div className="space-y-4">
-            {[
-              {
-                icon: Sparkles,
-                title: "Soins énergétiques",
-                text: "Des soins énergétiques et certains accompagnements sont également proposés à distance.",
-              },
-              {
-                icon: Home,
-                title: "Cabinet & domicile",
-                text: "Les consultations se déroulent au cabinet, à domicile ou à distance selon la prestation.",
-              },
-              {
-                icon: Heart,
-                title: "Magnétisme",
-                text: "Des interventions de magnétisme pour les personnes et les animaux.",
-              },
-            ].map((card) => (
-              <div
-                key={card.title}
-                className="flex gap-4 rounded-2xl border border-line bg-white p-5 transition-all duration-300 hover:border-goldline hover:shadow-[0_12px_40px_rgba(28,32,26,0.06)]"
+        </div>
+      </section>
+
+      {/* ============ APPROCHE ============ */}
+      <section id="approche" className="mx-auto max-w-7xl scroll-mt-24 px-6 py-28 lg:px-12 lg:py-40">
+        <div className="mx-auto max-w-3xl text-center">
+          <Eyebrow>Mon approche</Eyebrow>
+          <h2 className="reveal mt-8 font-display text-5xl font-light leading-[1.05] tracking-tight sm:text-6xl">
+            Vous guider sur la voie du{" "}
+            <span className="italic text-gold">bien-être</span>.
+          </h2>
+        </div>
+
+        <div className="mx-auto mt-16 grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+          <div className="reveal relative">
+            <div className="overflow-hidden rounded-[2.5rem]">
+              <img
+                src={IMAGES.massage}
+                alt="Massage aux huiles, lumière chaleureuse"
+                className="aspect-[4/5] w-full object-cover transition-transform duration-700 hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+            <div className="absolute -bottom-6 -right-4 -z-10 h-full w-full rounded-[2.5rem] border border-goldline sm:-right-6" />
+          </div>
+
+          <div className="space-y-6 text-base font-light leading-relaxed text-inkmuted sm:text-lg">
+            <p className="reveal font-display text-xl font-medium italic text-ink sm:text-2xl">
+              Se faire accompagner par un·e thérapeute énergétique, ça sert à
+              quoi ?
+            </p>
+            <p className="reveal">
+              À amener des libérations émotionnelles, des déblocages dans les
+              situations de vie, des guérisons physiques… Les maladies ou les
+              sensations de mal-être ont bien souvent une cause émotionnelle.
+              Nous allons ensemble chercher cette cause, enlever les mémoires
+              cellulaires liées aux événements douloureux — vécus de façon
+              consciente ou même inconsciente — et rétablir l'équilibre
+              énergétique défaillant.
+            </p>
+            <p className="reveal">
+              Tout ceci vous amenant à terme à revoir certains schémas de
+              pensées et de comportements, à vous sentir en paix intérieurement.
+              En complément d'un accompagnement, viendra parfois se glisser un
+              massage énergétique pour libérer les émotions cristallisées dans
+              les organes et qu'on n'arrive pas à exprimer. Et inversement,
+              certaines personnes commenceront par un massage et continueront
+              avec un accompagnement.
+            </p>
+            <p className="reveal">
+              N'oublions pas le monde de nos envolés. Je constate bien souvent
+              que ce sont vos défunts qui nous amènent à nous rencontrer — soit
+              parce qu'ils veulent vous aider, soit parce qu'ils ont besoin
+              d'aide.
+            </p>
+            <blockquote className="reveal border-l-2 border-gold pl-6">
+              <p className="font-display text-2xl font-light italic leading-snug text-ink">
+                « Quel beau cadeau, au final, vous vous faites. »
+              </p>
+              <cite className="mt-3 block text-xs font-semibold uppercase tracking-[0.25em] not-italic text-gold">
+                Prenez soin de vous — Cathy
+              </cite>
+            </blockquote>
+          </div>
+        </div>
+      </section>
+
+      {/* ============ MOTIFS ============ */}
+      <section className="border-y border-ink/10 bg-sand py-28 lg:py-36">
+        <div className="mx-auto max-w-7xl px-6 lg:px-12">
+          <div className="mx-auto max-w-4xl text-center">
+            <Eyebrow>Le toucher, l'écoute, l'intuition</Eyebrow>
+            <h2 className="reveal mt-8 font-display text-5xl font-light leading-[1.05] tracking-tight sm:text-6xl">
+              Ce qui peut vous amener à{" "}
+              <span className="italic text-gold">consulter</span>
+            </h2>
+            <p className="reveal mx-auto mt-6 max-w-2xl text-base font-light leading-relaxed text-inkmuted sm:text-lg">
+              Que ce soit pour des maux physiques ou émotionnels, en présentiel
+              ou à distance — chaque motif est une porte d'entrée vers un
+              mieux-être.
+            </p>
+          </div>
+          <div className="reveal mx-auto mt-14 flex max-w-4xl flex-wrap justify-center gap-3">
+            {motifs.map((motif) => (
+              <span
+                key={motif}
+                className="rounded-full border border-ink/15 bg-cream/70 px-5 py-2.5 text-sm font-medium text-ink/80 transition-all duration-300 hover:border-gold hover:bg-cream hover:text-ink"
               >
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-sagelight text-sage">
-                  <card.icon className="h-5 w-5" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-ink">{card.title}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-sage">{card.text}</p>
-                </div>
+                {motif}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ SOINS ============ */}
+      <section id="soins" className="mx-auto max-w-7xl scroll-mt-24 px-6 py-28 lg:px-12 lg:py-40">
+        <div className="grid items-end gap-10 lg:grid-cols-[1fr_auto]">
+          <div className="max-w-3xl">
+            <Eyebrow>
+              <span className="flex items-center gap-3">
+                Les soins
+              </span>
+            </Eyebrow>
+            <h2 className="reveal mt-8 text-center font-display text-5xl font-light leading-[1.05] tracking-tight sm:text-6xl lg:text-left">
+              Cinq chemins vers <span className="italic text-gold">l'équilibre</span>
+            </h2>
+          </div>
+          <div className="reveal hidden overflow-hidden rounded-[2rem] lg:block lg:w-64">
+            <img
+              src={IMAGES.stones}
+              alt="Pierres zen empilées"
+              className="aspect-square w-full object-cover transition-transform duration-700 hover:scale-105"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <div className="mt-20">
+          {soins.map((soin) => (
+            <article
+              key={soin.num}
+              className="group grid gap-8 border-t border-ink/15 py-14 transition-all duration-500 last:border-b hover:bg-sand/40 lg:grid-cols-[auto_1fr_auto] lg:gap-16 lg:px-6"
+            >
+              <span className="font-display text-5xl font-light italic text-gold/70 transition-colors duration-500 group-hover:text-gold lg:text-6xl">
+                {soin.num}
+              </span>
+              <div>
+                <h3 className="font-display text-3xl font-medium leading-tight text-ink sm:text-4xl">
+                  {soin.title}
+                </h3>
+                <p className="mt-5 max-w-2xl text-base font-light leading-relaxed text-inkmuted">
+                  {soin.description}
+                </p>
+                {soin.extra && (
+                  <dl className="mt-6 grid gap-4 sm:grid-cols-2">
+                    {soin.extra.map((item) => (
+                      <div
+                        key={item.label}
+                        className="rounded-2xl border border-ink/10 bg-cream p-5"
+                      >
+                        <dt className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gold">
+                          {item.label}
+                        </dt>
+                        <dd className="mt-2 text-sm font-light leading-relaxed text-inkmuted">
+                          {item.text}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                )}
+              </div>
+              <dl className="flex flex-col gap-4 lg:min-w-64 lg:text-right">
+                {soin.meta.map((m, i) => (
+                  <div key={`${m.label}-${i}`}>
+                    <dt className="text-[11px] font-semibold uppercase tracking-[0.2em] text-ink/50">
+                      {m.label}
+                    </dt>
+                    <dd className="mt-1 font-display text-xl font-medium text-ink">
+                      {m.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </article>
+          ))}
+        </div>
+
+        <div className="mt-14">
+          <p className="reveal mx-auto max-w-3xl border-l-2 border-goldbright pl-6 text-sm font-light italic leading-relaxed text-inkmuted">
+            Éthique : les bilans et prises en charge énergétiques présentés ici
+            ne constituent pas des actes médicaux. Aucun diagnostic médical
+            n'est posé et aucun traitement ne doit être modifié ou interrompu
+            sans l'avis du médecin traitant ou d'un spécialiste. Règlement par
+            chèque, espèces ou RIB.
+          </p>
+        </div>
+      </section>
+
+      {/* ============ RÉACTIONS ============ */}
+      <section className="border-y border-ink/10 bg-sand/50 py-28 lg:py-36">
+        <div className="mx-auto max-w-7xl px-6 lg:px-12">
+          <div className="text-center">
+            <Eyebrow>Après un soin</Eyebrow>
+            <h2 className="reveal mt-8 font-display text-5xl font-light leading-[1.05] tracking-tight sm:text-6xl">
+              Réactions éventuelles{" "}
+              <span className="italic text-gold">après un soin</span>
+            </h2>
+          </div>
+          <p className="reveal mx-auto mt-8 max-w-3xl text-center text-base font-light leading-relaxed text-inkmuted sm:text-lg">
+            Après un soin énergétique, certaines personnes continuent à
+            ressentir des émotions ou des sensations pendant quelque temps. Ces
+            réactions varient d'une personne à l'autre — et le bien-être n'est
+            pas toujours immédiat. Ne rien ressentir pendant la séance ne
+            signifie pas une absence d'effet.
+          </p>
+          <div className="reveal mt-16 grid gap-px overflow-hidden rounded-3xl border border-ink/10 bg-ink/10 sm:grid-cols-2 lg:grid-cols-3">
+            {reactions.map((reaction) => (
+              <div
+                key={reaction.title}
+                className="group bg-cream p-8 transition-colors duration-500 hover:bg-sand"
+              >
+                <span className="font-display text-3xl font-light italic text-gold/60 transition-colors duration-500 group-hover:text-gold">
+                  ✦
+                </span>
+                <h3 className="mt-4 font-display text-2xl font-medium text-ink">
+                  {reaction.title}
+                </h3>
+                <p className="mt-3 text-sm font-light leading-relaxed text-inkmuted">
+                  {reaction.text}
+                </p>
               </div>
             ))}
           </div>
         </div>
+      </section>
 
-        <div className="mt-14 flex gap-4 rounded-2xl border border-goldline bg-creamdark p-6 sm:p-8">
-          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gold/20 text-ink">
-            <span className="text-sm font-bold">É</span>
-          </div>
-          <div>
-            <h3 className="font-semibold text-ink">Éthique</h3>
-            <p className="mt-1 text-sm leading-relaxed text-sage">
-              Les bilans et prises en charge énergétiques présentés ici ne constituent pas des actes
-              médicaux. Aucun diagnostic médical n'est posé et aucun traitement ne doit être modifié
-              ou interrompu sans l'avis du médecin traitant ou d'un spécialiste.
+      {/* ============ À PROPOS ============ */}
+      <section id="a-propos" className="mx-auto max-w-7xl scroll-mt-24 px-6 py-28 lg:px-12 lg:py-40">
+        <div className="mx-auto max-w-3xl text-center">
+          <Eyebrow>À propos</Eyebrow>
+          <h2 className="reveal mt-8 font-display text-5xl font-light leading-[1.05] tracking-tight sm:text-6xl">
+            Qui <span className="italic text-gold">suis-je</span> ?
+          </h2>
+        </div>
+
+        <div className="mx-auto mt-16 grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+          <div className="reveal order-2 space-y-6 text-base font-light leading-relaxed text-inkmuted sm:text-lg lg:order-1">
+            <p>
+              Après une première vie professionnelle classique, j'ai choisi une
+              reconversion orientée vers l'accompagnement des autres. La seule
+              intention que je pose est de vous aider à retrouver davantage de
+              paix, d'amour et de lumière en vous.
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Soins */}
-      <section id="soins" className="bg-white">
-        <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
-          <SectionTitle eyebrow="Les soins" title={`Trois chapitres pour\nse reconnecter`} />
-
-          <div className="mt-16 space-y-24 sm:space-y-32">
-            {/* Soin 1 */}
-            <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-              <div className="order-2 lg:order-1">
-                <span className="text-xs font-semibold uppercase tracking-widest text-gold">01</span>
-                <h3 className="mt-2 font-display text-2xl font-medium text-ink sm:text-3xl">
-                  Accompagnement thérapeutique
-                </h3>
-                <p className="mt-4 leading-relaxed text-ink/80">
-                  Une thérapie demande généralement plusieurs séances. Le nombre de rendez-vous
-                  dépend du besoin de la personne et de son évolution dans la résolution de sa
-                  problématique.
-                </p>
-                <p className="mt-4 leading-relaxed text-ink/80">
-                  Selon les situations, différents outils peuvent être mobilisés : libération par la
-                  parole, rééquilibrage énergétique, travail sur la mémoire, approches
-                  transgénérationnelle, karmique ou prénatale, sophronisation thérapeutique, bol
-                  chantant tibétain, tambour…
-                </p>
-                <div className="mt-8 inline-flex flex-col gap-1 rounded-2xl border border-goldline bg-cream px-6 py-4">
-                  <div className="flex items-baseline gap-3">
-                    <span className="text-3xl font-semibold text-ink">60 €</span>
-                    <span className="text-sm text-sage">1 h 30</span>
-                  </div>
-                  <p className="text-sm text-sage">Tout public · en présentiel ou à distance (téléphone / visio)</p>
-                </div>
-              </div>
-              <div className="order-1 lg:order-2">
-                <div className="gold-frame overflow-hidden rounded-3xl">
-                  <img
-                    src={unsplashImages.soin1}
-                    alt="Massage du dos en séance de bien-être"
-                    className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-out hover:scale-[1.03]"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Soin 2 */}
-            <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-              <div>
-                <div className="gold-frame overflow-hidden rounded-3xl">
-                  <img
-                    src={unsplashImages.soin2}
-                    alt="Huiles essentielles et préparations de massage"
-                    className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-out hover:scale-[1.03]"
-                  />
-                </div>
-              </div>
-              <div>
-                <span className="text-xs font-semibold uppercase tracking-widest text-gold">02</span>
-                <h3 className="mt-2 font-display text-2xl font-medium text-ink sm:text-3xl">
-                  Massage des 5 Continents
-                </h3>
-                <p className="mt-4 leading-relaxed text-ink/80">
-                  Cette approche associe un massage complet, lent et profond à une dimension
-                  énergétique. Une démarche favorisant le lâcher-prise, la reconnexion à soi et la
-                  libération des tensions émotionnelles, au fil de préparations d'huiles essentielles
-                  (huile végétale neutre possible en cas d'allergie, à signaler à la prise de
-                  rendez-vous).
-                </p>
-                <div className="mt-6 space-y-4 rounded-2xl border border-line bg-cream p-6">
-                  <div>
-                    <h4 className="font-semibold text-ink">Avant la séance</h4>
-                    <p className="mt-1 text-sm text-sage">
-                      Arrivez détendu·e, prenez une douche ou un bain, évitez de crémer le corps et
-                      de trop manger juste avant.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-ink">Déroulement</h4>
-                    <p className="mt-1 text-sm text-sage">
-                      1 h 30. Les zones non massées restent couvertes, les sous-vêtements sont
-                      conservés. Le massage concerne le dos, le ventre, les jambes, les bras et la
-                      tête.
-                    </p>
-                  </div>
-                  <p className="text-xs text-sage">
-                    Précautions : grossesse et allaitement, épilepsie, cancers hormono-dépendants,
-                    certains traitements, problèmes cutanés, hypersensibilité, enfants de moins de
-                    10 ans.
-                  </p>
-                </div>
-                <div className="mt-8 inline-flex flex-col gap-1 rounded-2xl border border-goldline bg-cream px-6 py-4">
-                  <div className="flex items-baseline gap-3">
-                    <span className="text-3xl font-semibold text-ink">70 €</span>
-                    <span className="text-sm text-sage">1 h 30</span>
-                  </div>
-                  <p className="text-sm text-sage">Au cabinet à Romeries · extérieur / SPA : +5 € de déplacement</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Soin 3 */}
-            <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-              <div className="order-2 lg:order-1">
-                <span className="text-xs font-semibold uppercase tracking-widest text-gold">03</span>
-                <h3 className="mt-2 font-display text-2xl font-medium text-ink sm:text-3xl">
-                  Massage assis Amma
-                </h3>
-                <p className="mt-4 leading-relaxed text-ink/80">
-                  Réalisé sur une personne habillée assise sur un siège ergonomique, ce massage
-                  allie pressions, percussions, étirements et balayages énergétiques sur le dos, les
-                  bras, les mains, la tête et le visage.
-                </p>
-                <p className="mt-4 leading-relaxed text-ink/80">
-                  Idéal en entreprise, en institution ou lors d'événements bien-être pour offrir un
-                  moment de détente rapide et profonde.
-                </p>
-                <div className="mt-8 inline-flex flex-col gap-1 rounded-2xl border border-goldline bg-cream px-6 py-4">
-                  <div className="flex items-baseline gap-3">
-                    <span className="text-3xl font-semibold text-ink">30 €</span>
-                    <span className="text-sm text-sage">45 min</span>
-                  </div>
-                  <p className="text-sm text-sage">Au cabinet · temps réduit possible · entreprise sur devis</p>
-                </div>
-              </div>
-              <div className="order-1 lg:order-2">
-                <div className="gold-frame overflow-hidden rounded-3xl">
-                  <img
-                    src={unsplashImages.soin3}
-                    alt="Massage relaxant du visage"
-                    className="aspect-[4/3] w-full object-cover transition-transform duration-700 ease-out hover:scale-[1.03]"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Réactions */}
-      <section id="reactions" className="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
-        <SectionTitle eyebrow="Après un soin" title={`Réactions éventuelles,\ntout est juste`} />
-        <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-relaxed text-ink/80">
-          Après un soin énergétique, certaines personnes continuent à ressentir des émotions ou des
-          sensations pendant quelque temps. Ces réactions varient d'une personne à l'autre — et le
-          bien-être n'est pas toujours immédiat.
-        </p>
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {reactions.map((item) => (
-            <div
-              key={item.title}
-              className="rounded-2xl border border-line bg-white p-6 transition-all duration-300 hover:border-goldline hover:shadow-[0_12px_40px_rgba(28,32,26,0.05)]"
-            >
-              <h3 className="font-semibold text-ink">{item.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-sage">{item.text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* À propos */}
-      <section id="apropos" className="bg-creamdark">
-        <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
-          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-            <div className="order-2 lg:order-1">
-              <SectionTitle eyebrow="Qui suis-je ?" title={`À propos de\nmoi`} align="left" />
-              <p className="mt-6 leading-relaxed text-ink/80">
-                Après une première vie professionnelle classique, j'ai choisi une reconversion
-                orientée vers l'accompagnement des autres. Mon parcours m'a progressivement conduite
-                des pratiques énergétiques vers les massages et l'accompagnement du bien-être
-                corporel, avec une intention simple : vous aider à retrouver davantage de paix,
-                d'amour et de lumière en vous.
-              </p>
-              <div className="mt-8">
-                <h3 className="text-sm font-semibold uppercase tracking-widest text-gold">Formations</h3>
-                <ul className="mt-4 space-y-3">
-                  {formations.map((f) => (
-                    <li key={f} className="flex items-center gap-3 text-ink/80">
-                      <span className="h-1.5 w-1.5 rounded-full bg-gold" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="mt-10 rounded-2xl border-l-4 border-gold bg-cream p-6">
-                <p className="font-display text-xl font-medium italic text-ink">
-                  « La clé c'est vous ! »
-                </p>
-                <p className="mt-2 text-sm text-sage">— Cathy</p>
-              </div>
-            </div>
-            <div className="order-1 lg:order-2">
-              <div className="gold-frame overflow-hidden rounded-3xl">
-                <img
-                  src={unsplashImages.portrait}
-                  alt="Portrait en lumière douce — Cathy Bultez"
-                  className="aspect-[4/5] w-full scale-110 object-cover"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Tarifs */}
-      <section id="tarifs" className="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
-        <SectionTitle eyebrow="Tarifs" title={`Tarifs &\nbons cadeaux`} />
-        <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-sage">
-          Tarifs au 01/01/2025 · +5 € pour les rendez-vous à l'extérieur du cabinet
-        </p>
-
-        <div className="mt-14 grid gap-6 lg:grid-cols-3">
-          {[
-            {
-              title: "Accompagnement thérapeutique",
-              duration: "1 h 30 · possible à distance",
-              cabinet: "60 €",
-              exterieur: "65 €",
-            },
-            {
-              title: "Massage des 5 Continents",
-              duration: "1 h 30 · huiles essentielles",
-              cabinet: "70 €",
-              exterieur: "75 €",
-            },
-            {
-              title: "Massage assis Amma",
-              duration: "45 min · temps réduit possible",
-              cabinet: "30 €",
-              exterieur: "35 €",
-            },
-          ].map((card) => (
-            <div
-              key={card.title}
-              className="rounded-3xl border border-line bg-white p-6 transition-all duration-300 hover:border-goldline hover:shadow-[0_12px_40px_rgba(28,32,26,0.05)] sm:p-8"
-            >
-              <h3 className="font-display text-xl font-medium text-ink">{card.title}</h3>
-              <p className="mt-1 text-sm text-sage">{card.duration}</p>
-              <div className="mt-6 space-y-3">
-                <div className="flex items-center justify-between rounded-xl bg-cream p-4">
-                  <span className="text-sm font-medium text-ink">Cabinet</span>
-                  <span className="text-2xl font-semibold text-ink">{card.cabinet}</span>
-                </div>
-                <div className="flex items-center justify-between rounded-xl border border-line p-4">
-                  <span className="text-sm font-medium text-ink">Extérieur</span>
-                  <span className="text-2xl font-semibold text-ink">{card.exterieur}</span>
-                </div>
-              </div>
-              <a
-                href="#contact"
-                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full border border-line py-3 text-sm font-medium text-ink transition-colors hover:bg-creamdark"
-              >
-                Prendre rendez-vous <ArrowRight className="h-4 w-4" />
-              </a>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-10 rounded-3xl border border-goldline bg-creamdark p-6 sm:p-8">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
             <div>
-              <h3 className="font-display text-xl font-medium text-ink">Bon cadeau</h3>
-              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-sage">
-                À offrir pour un anniversaire, Noël, la Saint-Valentin, un enterrement de vie de
-                jeune fille, une naissance ou la fête des Mères / Grands-Mères. Le montant est libre
-                et peut être déduit d'une prestation. Valable 6 mois à compter de la date d'achat —
-                contactez-moi par téléphone pour obtenir le numéro à indiquer dans votre message.
+              <h3 className="text-[13px] font-semibold uppercase tracking-[0.3em] text-gold">
+                Formations
+              </h3>
+              <ul className="mt-5 space-y-3">
+                {formations.map((formation) => (
+                  <li
+                    key={formation}
+                    className="flex items-center gap-4 border-b border-ink/10 pb-3 font-display text-xl font-medium text-ink"
+                  >
+                    <span className="text-gold">✦</span>
+                    {formation}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <blockquote className="border-l-2 border-gold pl-6">
+              <p className="font-display text-2xl font-light italic leading-snug text-ink">
+                « La clé, c'est vous ! »
               </p>
+              <cite className="mt-3 block text-xs font-semibold uppercase tracking-[0.25em] not-italic text-gold">
+                — Cathy
+              </cite>
+            </blockquote>
+          </div>
+
+          <div className="reveal relative order-1 lg:order-2">
+            <div className="overflow-hidden rounded-[2.5rem]">
+              <img
+                src={IMAGES.silhouette}
+                alt="Silhouette face à la mer, lumière du matin"
+                className="aspect-[4/5] w-full object-cover transition-transform duration-700 hover:scale-105"
+                loading="lazy"
+              />
             </div>
-            <div className="shrink-0">
-              <p className="text-sm font-medium text-ink">Règlement accepté :</p>
-              <p className="mt-1 text-sm text-sage">chèque, espèces ou RIB.</p>
-            </div>
+            <div className="absolute -bottom-6 -left-4 -z-10 h-full w-full rounded-[2.5rem] border border-goldline sm:-left-6" />
           </div>
         </div>
       </section>
 
-      {/* Contact */}
-      <section id="contact" className="bg-white">
-        <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
-          <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
-            <div>
-              <SectionTitle eyebrow="Contact" title={`Contactez-\nmoi`} align="left" />
-              <p className="mt-6 leading-relaxed text-ink/80">
-                Séances en présentiel ou en entreprise ; séances à distance possibles pour les soins
-                énergétiques et les accompagnements. Déplacements possibles chez les personnes
-                âgées, en institutions, en SPA ou auprès de CE.
-              </p>
+      {/* ============ BON CADEAU ============ */}
+      <section
+        id="bon-cadeau"
+        className="relative mx-4 scroll-mt-24 overflow-hidden rounded-[3rem] bg-gradient-to-br from-goldbright via-gold to-golddeep py-24 text-cream sm:mx-6 lg:mx-10 lg:py-32"
+      >
+        <span className="pointer-events-none absolute -right-10 -top-24 select-none font-display text-[26rem] font-light italic leading-none text-cream/15">
+          *
+        </span>
+        <div className="pointer-events-none absolute -bottom-32 -left-24 h-96 w-96 rounded-full bg-cream/10 blur-3xl" />
 
-              <div className="mt-10 space-y-5">
-                <div className="flex items-start gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-sagelight text-sage">
-                    <MapPin className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-ink">Cathy Bultez</p>
-                    <p className="text-sm text-sage">Région Hauts-de-France · 59730 Romeries</p>
-                  </div>
-                </div>
-                <a
-                  href="tel:+33610197558"
-                  className="flex items-start gap-4 transition-colors hover:text-gold"
-                >
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-sagelight text-sage">
-                    <Phone className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-ink">Téléphone</p>
-                    <p className="text-sm text-sage">06 10 19 75 58</p>
-                  </div>
-                </a>
-                <a
-                  href="mailto:cathybultez@hotmail.com"
-                  className="flex items-start gap-4 transition-colors hover:text-gold"
-                >
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-sagelight text-sage">
-                    <Mail className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-ink">Email</p>
-                    <p className="text-sm text-sage">cathybultez@hotmail.com</p>
-                  </div>
-                </a>
-                <div className="flex items-start gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-sagelight text-sage">
-                    <Clock className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-ink">Règlement accepté</p>
-                    <p className="text-sm text-sage">chèque, espèces ou RIB.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="rounded-3xl border border-line bg-cream p-6 sm:p-8">
-              <h3 className="mb-6 font-display text-xl font-medium text-ink">Envoyer un message</h3>
-              <ContactForm />
-            </div>
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-12">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="reveal flex items-center justify-center gap-3 text-[13px] font-semibold uppercase tracking-[0.3em] text-cream/80">
+              <Gift className="h-4 w-4" />
+              Offrir un moment de soin
+            </p>
+            <h2 className="reveal mt-8 font-display text-5xl font-light leading-[1.05] tracking-tight sm:text-6xl">
+              Le <span className="italic">bon cadeau</span>
+            </h2>
+            <p className="reveal mt-8 text-base font-light leading-relaxed text-cream/90 sm:text-lg">
+              Pour un anniversaire, Noël, la Saint-Valentin, un enterrement de
+              vie de jeune fille, une naissance ou la fête des Mères et
+              Grands-Mères — offrez une parenthèse de bien-être. Le montant est
+              libre et peut être déduit d'une prestation. Bon valable{" "}
+              <span className="font-semibold">6 mois</span> à compter de la date
+              d'achat.
+            </p>
+            <p className="reveal mt-5 text-sm font-light leading-relaxed text-cream/75">
+              Réservation sur place à Romeries (contactez-moi au préalable) ou à
+              distance en appelant le 06 10 19 75 58 pour obtenir un numéro de
+              bon cadeau.
+            </p>
+            <a
+              href="tel:0610197558"
+              className="reveal group mt-10 inline-flex items-center gap-3 rounded-full bg-cream px-9 py-4 text-sm font-semibold uppercase tracking-[0.15em] text-ink transition-all duration-300 hover:bg-ink hover:text-cream"
+            >
+              <Phone className="h-4 w-4 transition-transform duration-300 group-hover:rotate-12" />
+              Réserver un bon cadeau
+            </a>
           </div>
         </div>
       </section>
+
+      <div className="h-24 lg:h-32" />
 
       <Footer />
     </div>
