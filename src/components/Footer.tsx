@@ -1,28 +1,99 @@
+import { ArrowUp, Mail, MapPin, Phone } from "lucide-react";
+
 export function Footer() {
   return (
-    <footer className="border-t border-line bg-creamdark py-10">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
-          <div className="text-center md:text-left">
-            <p className="text-lg font-semibold text-ink">Cathy Bultez</p>
-            <p className="mt-1 text-sm text-sage">
-              Thérapeute énergétique & Massothérapeute · Romeries
+    <footer
+      id="contact"
+      className="relative overflow-hidden bg-olive pt-24 text-cream lg:pt-32"
+    >
+      {/* decorative glow */}
+      <div className="pointer-events-none absolute -left-40 top-0 h-[30rem] w-[30rem] rounded-full bg-goldbright/15 blur-3xl" />
+      <div className="pointer-events-none absolute -right-32 bottom-0 h-[26rem] w-[26rem] rounded-full bg-sanddeep/10 blur-3xl" />
+
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-12">
+        <div className="text-center">
+          <p className="reveal text-[13px] font-semibold uppercase tracking-[0.3em] text-cream/70">
+            Contactez-moi
+          </p>
+          <h2 className="reveal mt-6 font-display text-5xl font-light leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
+            Prenez soin de vous,
+            <br />
+            <span className="italic text-sanddeep">je vous accompagne</span>.
+          </h2>
+        </div>
+
+        <div className="reveal mt-14 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
+          <a
+            href="tel:0610197558"
+            className="group inline-flex items-center gap-3 rounded-full bg-cream px-8 py-4 text-base font-semibold text-ink transition-all duration-300 hover:bg-sanddeep"
+          >
+            <Phone className="h-4 w-4 transition-transform duration-300 group-hover:rotate-12" />
+            06 10 19 75 58
+          </a>
+          <a
+            href="mailto:cathybultez@hotmail.com"
+            className="group inline-flex items-center gap-3 rounded-full border border-cream/40 px-8 py-4 text-base font-medium text-cream transition-all duration-300 hover:border-cream hover:bg-cream/10"
+          >
+            <Mail className="h-4 w-4" />
+            cathybultez@hotmail.com
+          </a>
+        </div>
+
+        <div className="reveal mt-20 grid gap-10 border-t border-cream/20 pt-14 sm:grid-cols-3">
+          <div className="text-center sm:text-left">
+            <div className="flex items-center justify-center gap-2 text-sanddeep sm:justify-start">
+              <MapPin className="h-4 w-4" />
+              <h3 className="text-[13px] font-semibold uppercase tracking-[0.25em]">
+                Le cabinet
+              </h3>
+            </div>
+            <p className="mt-4 font-display text-xl font-light leading-snug">
+              Cathy Bultez
+              <br />
+              59730 Romeries
+              <br />
+              Hauts-de-France
             </p>
           </div>
-          <div className="flex flex-col items-center gap-2 text-sm text-sage md:items-end">
-            <a href="tel:+33610197558" className="hover:text-ink hover:underline">
-              06 10 19 75 58
-            </a>
-            <a href="mailto:cathybultez@hotmail.com" className="hover:text-ink hover:underline">
-              cathybultez@hotmail.com
-            </a>
+          <div className="text-center sm:text-left">
+            <h3 className="text-[13px] font-semibold uppercase tracking-[0.25em] text-sanddeep">
+              Prise de rendez-vous
+            </h3>
+            <p className="mt-4 font-light leading-relaxed text-cream/85">
+              Par téléphone ou par e-mail.
+              <br />
+              Séances en présentiel ou à distance.
+            </p>
+          </div>
+          <div className="text-center sm:text-left">
+            <h3 className="text-[13px] font-semibold uppercase tracking-[0.25em] text-sanddeep">
+              Règlement
+            </h3>
+            <p className="mt-4 font-light leading-relaxed text-cream/85">
+              Chèque, espèces ou RIB acceptés.
+            </p>
           </div>
         </div>
-        <div className="mt-8 border-t border-line pt-6 text-center text-xs text-sage">
-          <p>
-            Les soins proposés ne constituent pas des actes médicaux et ne remplacent en aucun cas un avis médical.
+
+        <p className="reveal mx-auto mt-16 max-w-3xl text-center text-sm font-light italic leading-relaxed text-cream/60">
+          Les bilans et prises en charge énergétiques ne constituent pas des
+          actes médicaux. Aucun diagnostic médical n'est posé et aucun
+          traitement ne doit être modifié ou interrompu sans l'avis du médecin
+          traitant ou d'un spécialiste.
+        </p>
+
+        <div className="mt-14 flex flex-col items-center justify-between gap-6 border-t border-cream/20 py-8 sm:flex-row">
+          <p className="text-xs tracking-wide text-cream/60">
+            © {new Date().getFullYear()} Cathy Bultez — Thérapeute Énergétique
+            · Massothérapeute
           </p>
-          <p className="mt-2">© {new Date().getFullYear()} Cathy Bultez. Tous droits réservés.</p>
+          <a
+            href="#"
+            className="group inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-cream/70 transition-colors hover:text-cream"
+          >
+            Retour en haut
+            <ArrowUp className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-1" />
+          </a>
         </div>
       </div>
     </footer>
