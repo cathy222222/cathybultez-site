@@ -62,6 +62,16 @@ const soins: Soin[] = [
   },
   {
     num: "02",
+    title: "Soins des 2 couronnes",
+    description:
+      "Je vous propose également des soins pour vous aider dans la relation parents/enfants, les problèmes dans les fratries.",
+    meta: [
+      { label: "Prix", value: "90 €" },
+      { label: "Lieu", value: "À distance sur photos" },
+    ],
+  },
+  {
+    num: "03",
     title: "Soin d'urgence à distance",
     description:
       "Un soin énergétique proposé à distance pour accompagner les situations d'urgence, notamment les douleurs ou les crises d'angoisse.",
@@ -71,7 +81,7 @@ const soins: Soin[] = [
     ],
   },
   {
-    num: "03",
+    num: "04",
     title: "Massage Énergétique Intuitif du Corps",
     description:
       "Un massage personnalisé qui associe l'écoute du corps, le toucher et l'intuition. Chaque séance est adaptée à la personne et à ses besoins du moment — une démarche favorisant le lâcher-prise, la reconnexion à soi et la libération des tensions émotionnelles.",
@@ -100,7 +110,7 @@ const soins: Soin[] = [
     ],
   },
   {
-    num: "04",
+    num: "05",
     title: "Massage Assis Énergétique Intuitif",
     description:
       "Reçu habillé, en position assise sur une chaise ergonomique conçue à cette fin. Il s'effectue au niveau des épaules, du dos, de la nuque, des hanches, des bras, des mains et de la tête. Apaisant et profondément relaxant, il rééquilibre le corps, améliore la circulation, soulage les tensions nerveuses et dynamise l'organisme tout entier. Il stimule les méridiens d'acupuncture et aide à soulager les affections causées par le stress : maux de dos, migraines, épuisement, insomnies…",
@@ -116,7 +126,7 @@ const soins: Soin[] = [
     ],
   },
   {
-    num: "05",
+    num: "06",
     title: "Nettoyage énergétique de lieux",
     description:
       "Les lieux et les bâtiments ont des mémoires, liées aux habitants, à l'histoire des lieux ou à l'environnement — générant parfois des blocages : difficultés à vendre, disputes, problèmes de sommeil ou de santé. Un nettoyage énergétique élimine entités, mauvaises énergies et mémoires pour remettre de belles énergies et protections. Je conseille toujours un nettoyage avant d'emménager dans une nouvelle maison.",
@@ -232,21 +242,22 @@ function HomePage() {
       {/* ============ HERO ============ */}
       <section className="relative flex min-h-screen flex-col justify-between overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-creamsoft via-cream to-cream" />
-          <div className="absolute -right-32 top-24 h-[32rem] w-[32rem] rounded-full bg-sanddeep/40 blur-3xl" />
-          <div className="absolute -left-40 bottom-10 h-[26rem] w-[26rem] rounded-full bg-sand/70 blur-3xl" />
+          <img
+            src={IMAGES.silhouette}
+            alt=""
+            className="h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-cream/85 via-cream/75 to-cream" />
         </div>
 
         <div className="relative flex flex-1 flex-col justify-between">
-          <div className="mx-auto w-full max-w-7xl px-6 pt-32 text-center sm:pt-36 lg:px-12 lg:pt-44">
-            <p className="text-[12px] font-semibold uppercase tracking-[0.35em] text-ink/60 sm:text-[13px]">
+          <div className="mx-auto w-full max-w-7xl px-6 pt-40 text-center sm:pt-48 lg:px-12 lg:pt-56">
+            <h1 className="sr-only">
+              Cathy Bultez — Thérapeute Énergétique · Massothérapeute à Romeries
+            </h1>
+            <p className="text-[13px] font-semibold uppercase tracking-[0.35em] text-ink/70 sm:text-sm">
               Thérapeute Énergétique · Massothérapeute
             </p>
-            <h1 className="mt-6 font-display text-[20vw] font-light leading-[0.9] tracking-tighter text-ink sm:text-[15vw] lg:text-[10.5rem]">
-              Cathy
-              <br />
-              <span className="italic text-gold">Bultez</span>
-            </h1>
             <p className="mx-auto mt-10 max-w-xl text-base font-light leading-relaxed text-inkmuted sm:text-lg">
               Vous guider sur la voie du bien-être — libérer les émotions,
               rééquilibrer les énergies, retrouver la paix intérieure.
@@ -379,8 +390,7 @@ function HomePage() {
             </h2>
             <p className="reveal mx-auto mt-6 max-w-2xl text-base font-light leading-relaxed text-inkmuted sm:text-lg">
               Que ce soit pour des maux physiques ou émotionnels, en présentiel
-              ou à distance — chaque motif est une porte d'entrée vers un
-              mieux-être.
+              ou à distance.
             </p>
           </div>
           <div className="reveal mx-auto mt-14 flex max-w-4xl flex-wrap justify-center gap-3">
@@ -406,7 +416,7 @@ function HomePage() {
               </span>
             </Eyebrow>
             <h2 className="reveal mt-8 text-center font-display text-5xl font-light leading-[1.05] tracking-tight sm:text-6xl lg:text-left">
-              Cinq chemins vers <span className="italic text-gold">l'équilibre</span>
+              Six chemins vers <span className="italic text-gold">l'équilibre</span>
             </h2>
           </div>
           <div className="reveal hidden overflow-hidden rounded-[2rem] lg:block lg:w-64">
@@ -469,15 +479,6 @@ function HomePage() {
           ))}
         </div>
 
-        <div className="mt-14">
-          <p className="reveal mx-auto max-w-3xl border-l-2 border-goldbright pl-6 text-sm font-light italic leading-relaxed text-inkmuted">
-            Éthique : les bilans et prises en charge énergétiques présentés ici
-            ne constituent pas des actes médicaux. Aucun diagnostic médical
-            n'est posé et aucun traitement ne doit être modifié ou interrompu
-            sans l'avis du médecin traitant ou d'un spécialiste. Règlement par
-            chèque, espèces ou RIB.
-          </p>
-        </div>
       </section>
 
       {/* ============ RÉACTIONS ============ */}
