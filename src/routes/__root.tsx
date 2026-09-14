@@ -18,7 +18,7 @@ function NotFoundComponent() {
       <div className="max-w-md text-center">
         <h1 className="text-7xl font-bold text-ink">404</h1>
         <h2 className="mt-4 text-xl font-semibold text-ink">Page introuvable</h2>
-        <p className="mt-2 text-sm text-sage">
+        <p className="mt-2 text-sm text-inkmuted">
           La page que vous recherchez n'existe pas ou a été déplacée.
         </p>
         <div className="mt-6">
@@ -47,7 +47,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
         <h1 className="text-xl font-semibold tracking-tight text-ink">
           Cette page n'a pas pu charger
         </h1>
-        <p className="mt-2 text-sm text-sage">
+        <p className="mt-2 text-sm text-inkmuted">
           Une erreur est survenue. Vous pouvez rafraîchir la page ou revenir à l'accueil.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
@@ -62,7 +62,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center rounded-full border border-line bg-cream px-6 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-creamdark"
+            className="inline-flex items-center justify-center rounded-full border border-line bg-cream px-6 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-sand"
           >
             Accueil
           </a>
