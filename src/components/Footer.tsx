@@ -75,12 +75,6 @@ export function Footer() {
           </div>
         </div>
 
-        <p className="reveal mx-auto mt-16 max-w-3xl text-center text-sm font-light italic leading-relaxed text-cream/60">
-          Les bilans et prises en charge énergétiques ne constituent pas des
-          actes médicaux. Aucun diagnostic médical n'est posé et aucun
-          traitement ne doit être modifié ou interrompu sans l'avis du médecin
-          traitant ou d'un spécialiste.
-        </p>
 
         <div className="mt-14 flex flex-col items-center justify-between gap-6 border-t border-cream/20 py-8 sm:flex-row">
           <p className="text-xs tracking-wide text-cream/60">
