@@ -77,18 +77,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "theme-color", content: "#FDFCF7" },
-      { title: "Cathy Bultez — Thérapeute énergétique & Massothérapeute · Romeries" },
+      { name: "theme-color", content: "#FCFAF5" },
+      { title: "Cathy Bultez — Thérapeute Énergétique · Massothérapeute · Romeries" },
       {
         name: "description",
         content:
-          "Cathy Bultez, thérapeute énergétique et massothérapeute à Romeries. Accompagnement thérapeutique, massage des 5 Continents, massage assis Amma, tarifs et contact.",
+          "Cathy Bultez vous guide sur la voie du bien-être à Romeries : accompagnement thérapeutique, massages énergétiques intuitifs, soins à distance et bons cadeaux.",
       },
-      { property: "og:title", content: "Cathy Bultez — Thérapeute énergétique & Massothérapeute · Romeries" },
+      { property: "og:title", content: "Cathy Bultez — Thérapeute Énergétique · Massothérapeute · Romeries" },
       {
         property: "og:description",
         content:
-          "Accompagnement thérapeutique, massage des 5 Continents, massage assis Amma, magnétisme et soins énergétiques à Romeries.",
+          "Libérer les émotions, rééquilibrer les énergies, retrouver la paix intérieure. Soins au cabinet de Romeries, à domicile ou à distance.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
