@@ -1,6 +1,6 @@
-- [ ] Remplacer « reconversion » par un appel à la mission de vie
-- [ ] Utiliser la photo transmise en fond de la première partie
-- [ ] Mettre une petite photo avec des mains posées sur la tête dans « Vous guider sur la voie du bien-être »
-- [ ] Renommer et compléter le soin des 2 couronnes avec les nouveaux textes et tarifs
-- [ ] Mettre une photo de dos d'une personne apaisée face à la mer et au soleil
-- [ ] Vérifier l'affichage mobile et ordinateur
+- [x] Remplacer « reconversion » par un appel à la mission de vie
+- [x] Utiliser la photo transmise en fond de la première partie
+- [x] Mettre une petite photo avec des mains posées sur la tête dans « Vous guider sur la voie du bien-être »
+- [x] Renommer et compléter le soin des 2 couronnes avec les nouveaux textes et tarifs
+- [x] Mettre une photo de dos d'une personne apaisée face à la mer et au soleil
+- [x] Vérifier l'affichage mobile et ordinateur
