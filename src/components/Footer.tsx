@@ -1,4 +1,5 @@
 import { ArrowUp, Mail, MapPin, Phone } from "lucide-react";
+import ndVertigneul from "@/assets/nd-vertigneul.png.asset.json";
 
 export function Footer() {
   return (
@@ -9,6 +10,14 @@ export function Footer() {
       {/* decorative glow */}
       <div className="pointer-events-none absolute -left-40 top-0 h-[30rem] w-[30rem] rounded-full bg-goldbright/15 blur-3xl" />
       <div className="pointer-events-none absolute -right-32 bottom-0 h-[26rem] w-[26rem] rounded-full bg-sanddeep/10 blur-3xl" />
+
+      <img
+        src={ndVertigneul.url}
+        alt=""
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-4 w-auto max-w-none -translate-x-1/2 object-contain mix-blend-multiply"
+        style={{ height: "min(60vw, 30rem)" }}
+      />
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-12">
         <div className="text-center">

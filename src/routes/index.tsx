@@ -535,53 +535,37 @@ function HomePage() {
           </h2>
         </div>
 
-        <div className="mx-auto mt-16 grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-          <div className="reveal order-2 space-y-6 text-base font-light leading-relaxed text-inkmuted sm:text-lg lg:order-1">
-            <p>
-              Après une première vie professionnelle classique, j'ai ressenti
-              l'appel profond de ma mission de vie : accompagner les autres sur
-              leur chemin. La seule intention que je pose est de vous aider à
-              retrouver davantage de paix, d'amour et de lumière en vous.
+        <div className="reveal mx-auto mt-16 max-w-2xl space-y-6 text-base font-light leading-relaxed text-inkmuted sm:text-lg">
+          <p>
+            Après une première vie professionnelle classique, j'ai ressenti
+            l'appel profond de ma mission de vie : accompagner les autres sur
+            leur chemin. La seule intention que je pose est de vous aider à
+            retrouver davantage de paix, d'amour et de lumière en vous.
+          </p>
+          <div>
+            <h3 className="text-[13px] font-semibold uppercase tracking-[0.3em] text-gold">
+              Formations
+            </h3>
+            <ul className="mt-5 space-y-3">
+              {formations.map((formation) => (
+                <li
+                  key={formation}
+                  className="flex items-center gap-4 border-b border-ink/10 pb-3 font-display text-xl font-medium text-ink"
+                >
+                  <span className="text-gold">✦</span>
+                  {formation}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <blockquote className="border-l-2 border-gold pl-6">
+            <p className="font-display text-2xl font-light italic leading-snug text-ink">
+              « La clé, c'est vous ! »
             </p>
-            <div>
-              <h3 className="text-[13px] font-semibold uppercase tracking-[0.3em] text-gold">
-                Formations
-              </h3>
-              <ul className="mt-5 space-y-3">
-                {formations.map((formation) => (
-                  <li
-                    key={formation}
-                    className="flex items-center gap-4 border-b border-ink/10 pb-3 font-display text-xl font-medium text-ink"
-                  >
-                    <span className="text-gold">✦</span>
-                    {formation}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <blockquote className="border-l-2 border-gold pl-6">
-              <p className="font-display text-2xl font-light italic leading-snug text-ink">
-                « La clé, c'est vous ! »
-              </p>
-              <cite className="mt-3 block text-xs font-semibold uppercase tracking-[0.25em] not-italic text-gold">
-                — Cathy
-              </cite>
-            </blockquote>
-          </div>
-
-          <div className="reveal relative order-1 lg:order-2">
-            <div className="overflow-hidden rounded-[2.5rem]">
-              <img
-                src={femmeApaiseeMer}
-                alt="Femme apaisée de dos face à la mer au soleil levant"
-                className="aspect-[4/5] w-full object-cover transition-transform duration-700 hover:scale-105"
-                loading="lazy"
-                width={1024}
-                height={1280}
-              />
-            </div>
-            <div className="absolute -bottom-6 -left-4 -z-10 h-full w-full rounded-[2.5rem] border border-goldline sm:-left-6" />
-          </div>
+            <cite className="mt-3 block text-xs font-semibold uppercase tracking-[0.25em] not-italic text-gold">
+              — Cathy
+            </cite>
+          </blockquote>
         </div>
       </section>
 
