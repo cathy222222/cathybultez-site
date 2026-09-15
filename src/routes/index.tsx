@@ -3,6 +3,8 @@ import { useEffect, useRef } from "react";
 import { ArrowDown, Gift, Phone } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import soinMainsTete from "@/assets/soin-mains-tete.jpg";
+import femmeApaiseeMer from "@/assets/femme-apaisée-mer.jpg";
 
 const IMAGES = {
   massage:
@@ -62,11 +64,12 @@ const soins: Soin[] = [
   },
   {
     num: "02",
-    title: "Soins des 2 couronnes",
+    title: "Soin des 2 couronnes",
     description:
-      "Je vous propose également des soins pour vous aider dans la relation parents/enfants, les problèmes dans les fratries.",
+      "Je vous propose également des soins pour vous aider dans la relation parents/enfants, les problèmes dans les fratries. Un soin puissant qui règle certaines problématiques entre un parent et son enfant, entre une fratrie, apporte des libérations, des compréhensions, de l'apaisement. Il peut également être réalisé avec un proche défunt. Ce soin peut aussi être fait individuellement pour vous rééquilibrer énergétiquement et émotionnellement, vous libérer et enlever des blocages.",
     meta: [
-      { label: "Prix", value: "90 €" },
+      { label: "Prix", value: "90 € pour 2 personnes" },
+      { label: "Individuel", value: "45 €" },
       { label: "Lieu", value: "À distance sur photos" },
     ],
   },
@@ -243,11 +246,13 @@ function HomePage() {
       <section className="relative flex min-h-screen flex-col justify-between overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src={IMAGES.silhouette}
+            src={femmeApaiseeMer}
             alt=""
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover object-center"
+            width={1024}
+            height={1280}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-cream/85 via-cream/75 to-cream" />
+          <div className="absolute inset-0 bg-gradient-to-b from-cream/75 via-cream/60 to-cream" />
         </div>
 
         <div className="relative flex flex-1 flex-col justify-between">
@@ -325,17 +330,19 @@ function HomePage() {
           </h2>
         </div>
 
-        <div className="mx-auto mt-16 grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-          <div className="reveal relative">
-            <div className="overflow-hidden rounded-[2.5rem]">
+        <div className="mx-auto mt-16 grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+          <div className="reveal relative mx-auto w-full max-w-sm">
+            <div className="overflow-hidden rounded-[2rem]">
               <img
-                src={IMAGES.massage}
-                alt="Massage aux huiles, lumière chaleureuse"
+                src={soinMainsTete}
+                alt="Soin énergétique avec les mains posées près de la tête"
                 className="aspect-[4/5] w-full object-cover transition-transform duration-700 hover:scale-105"
                 loading="lazy"
+                width={1024}
+                height={1280}
               />
             </div>
-            <div className="absolute -bottom-6 -right-4 -z-10 h-full w-full rounded-[2.5rem] border border-goldline sm:-right-6" />
+            <div className="absolute -bottom-5 -right-4 -z-10 h-full w-full rounded-[2rem] border border-goldline sm:-right-5" />
           </div>
 
           <div className="space-y-6 text-base font-light leading-relaxed text-inkmuted sm:text-lg">
@@ -531,10 +538,10 @@ function HomePage() {
         <div className="mx-auto mt-16 grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div className="reveal order-2 space-y-6 text-base font-light leading-relaxed text-inkmuted sm:text-lg lg:order-1">
             <p>
-              Après une première vie professionnelle classique, j'ai choisi une
-              reconversion orientée vers l'accompagnement des autres. La seule
-              intention que je pose est de vous aider à retrouver davantage de
-              paix, d'amour et de lumière en vous.
+              Après une première vie professionnelle classique, j'ai ressenti
+              l'appel profond de ma mission de vie : accompagner les autres sur
+              leur chemin. La seule intention que je pose est de vous aider à
+              retrouver davantage de paix, d'amour et de lumière en vous.
             </p>
             <div>
               <h3 className="text-[13px] font-semibold uppercase tracking-[0.3em] text-gold">
@@ -565,10 +572,12 @@ function HomePage() {
           <div className="reveal relative order-1 lg:order-2">
             <div className="overflow-hidden rounded-[2.5rem]">
               <img
-                src={IMAGES.silhouette}
-                alt="Silhouette face à la mer, lumière du matin"
+                src={femmeApaiseeMer}
+                alt="Femme apaisée de dos face à la mer au soleil levant"
                 className="aspect-[4/5] w-full object-cover transition-transform duration-700 hover:scale-105"
                 loading="lazy"
+                width={1024}
+                height={1280}
               />
             </div>
             <div className="absolute -bottom-6 -left-4 -z-10 h-full w-full rounded-[2.5rem] border border-goldline sm:-left-6" />
