@@ -15,8 +15,8 @@ export function Footer() {
         src={ndVertigneul.url}
         alt=""
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-6 w-auto max-w-none -translate-x-1/2 object-contain opacity-45 mix-blend-multiply sm:top-2 lg:h-[38rem]"
-        style={{ height: "min(60vw, 34rem)" }}
+        className="pointer-events-none absolute left-1/2 top-4 w-auto max-w-none -translate-x-1/2 object-contain mix-blend-multiply"
+        style={{ height: "min(60vw, 30rem)" }}
       />
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-12">
