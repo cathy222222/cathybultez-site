@@ -1,4 +1,5 @@
 import { ArrowUp, Mail, MapPin, Phone } from "lucide-react";
+import ndVertigneul from "@/assets/nd-vertigneul.png.asset.json";
 
 export function Footer() {
   return (
