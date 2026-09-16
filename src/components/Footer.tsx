@@ -37,7 +37,7 @@ export function Footer() {
           </h2>
         </div>
 
-        <div className="reveal mt-14 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
+        <div className="reveal mt-40 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
           <a
             href="tel:0610197558"
             className="group inline-flex items-center gap-3 rounded-full bg-cream px-8 py-4 text-base font-semibold text-ink transition-all duration-300 hover:bg-sanddeep"
