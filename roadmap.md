@@ -1,6 +1,4 @@
-- [x] Remplacer « reconversion » par un appel à la mission de vie
-- [x] Utiliser la photo transmise en fond de la première partie
-- [x] Mettre une petite photo avec des mains posées sur la tête dans « Vous guider sur la voie du bien-être »
-- [x] Renommer et compléter le soin des 2 couronnes avec les nouveaux textes et tarifs
-- [x] Mettre une photo de dos d'une personne apaisée face à la mer et au soleil
-- [x] Vérifier l'affichage mobile et ordinateur
+# Roadmap
+
+- [x] Abaisser téléphone + e-mail dans « Prenez soin de vous » pour laisser voir les visages de la photo de fond
+- [ ] Ajouter la mention de tarification « au 15/10/2026 »
