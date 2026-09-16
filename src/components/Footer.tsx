@@ -15,8 +15,14 @@ export function Footer() {
         src={ndVertigneul.url}
         alt=""
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-4 w-auto max-w-none -translate-x-1/2 object-contain mix-blend-multiply"
-        style={{ height: "min(60vw, 30rem)" }}
+        className="pointer-events-none absolute left-1/2 top-4 w-auto max-w-none -translate-x-1/2 object-contain opacity-80 mix-blend-multiply"
+        style={{
+          height: "min(60vw, 30rem)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 70% 70% at 50% 50%, black 60%, transparent 92%)",
+          maskImage:
+            "radial-gradient(ellipse 70% 70% at 50% 50%, black 60%, transparent 92%)",
+        }}
       />
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-12">
