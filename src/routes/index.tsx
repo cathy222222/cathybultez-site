@@ -486,6 +486,10 @@ function HomePage() {
           ))}
         </div>
 
+        <p className="reveal mt-10 text-center text-sm font-light text-inkmuted">
+          Tarifs en vigueur au 15/10/2026.
+        </p>
+
       </section>
 
       {/* ============ RÉACTIONS ============ */}
