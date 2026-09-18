@@ -321,7 +321,11 @@ function CoherenceCardiaque() {
               <div
                 className="flex h-40 w-40 flex-col items-center justify-center rounded-full bg-gold/15 sm:h-56 sm:w-56"
                 style={{
-                  transform: phase === "in" ? "scale(1.2)" : "scale(0.75)",
+                  transform: finished
+                    ? "scale(1)"
+                    : phase === "in"
+                      ? "scale(1.2)"
+                      : "scale(0.75)",
                   transition: running
                     ? "transform 5s ease-in-out"
                     : "transform 1.2s ease-in-out",
