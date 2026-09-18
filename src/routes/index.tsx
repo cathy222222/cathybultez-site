@@ -319,7 +319,7 @@ function CoherenceCardiaque() {
               aria-hidden
             >
               <div
-                className="flex h-40 w-40 items-center justify-center rounded-full bg-gold/15 sm:h-52 sm:w-52"
+                className="flex h-40 w-40 flex-col items-center justify-center rounded-full bg-gold/15 sm:h-56 sm:w-56"
                 style={{
                   transform: phase === "in" ? "scale(1.2)" : "scale(0.75)",
                   transition: running
@@ -327,20 +327,20 @@ function CoherenceCardiaque() {
                     : "transform 1.2s ease-in-out",
                 }}
               >
-                <Heart className="h-8 w-8 text-gold" />
+                <Heart className="h-6 w-6 text-gold" />
+                <p className="mt-2 font-display text-xl font-light italic text-ink sm:text-2xl">
+                  {!started
+                    ? "Prête ?"
+                    : finished
+                      ? "Session terminée ✦"
+                      : running
+                        ? phase === "in"
+                          ? "Inspirez"
+                          : "Expirez"
+                        : "Pause"}
+                </p>
               </div>
             </div>
-            <p className="relative font-display text-2xl font-light italic text-ink">
-              {!started
-                ? "Prête ?"
-                : finished
-                  ? "Session terminée ✦"
-                  : running
-                    ? phase === "in"
-                      ? "Inspirez"
-                      : "Expirez"
-                    : "Pause"}
-            </p>
           </div>
 
           <p className="relative mt-8 font-display text-3xl font-light tabular-nums text-ink/80">
