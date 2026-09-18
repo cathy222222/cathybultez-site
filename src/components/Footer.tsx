@@ -77,7 +77,7 @@ export function Footer() {
             <p className="mt-4 font-light leading-relaxed text-cream/85">
               Par téléphone ou par e-mail.
               <br />
-              Séances en présentiel ou à distance.
+              Séances à distance ou en présentiel.
             </p>
           </div>
           <div className="text-center sm:text-left">
