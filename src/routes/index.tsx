@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef } from "react";
-import { ArrowDown, Gift, Phone } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowDown, Gift, Heart, Phone, X } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import soinMainsTete from "@/assets/soin-mains-tete.jpg";
@@ -211,6 +211,178 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
   );
 }
 
+const COHERENCE_TOTAL = 300; // 5 minutes
+
+function CoherenceCardiaque() {
+  const [open, setOpen] = useState(false);
+  const [running, setRunning] = useState(false);
+  const [phase, setPhase] = useState<"in" | "out">("out");
+  const [secondsLeft, setSecondsLeft] = useState(COHERENCE_TOTAL);
+
+  const finished = !running && secondsLeft === 0;
+  const started = secondsLeft < COHERENCE_TOTAL || running;
+
+  const close = () => {
+    setOpen(false);
+    setRunning(false);
+    setSecondsLeft(COHERENCE_TOTAL);
+    setPhase("out");
+  };
+
+  const start = () => {
+    setSecondsLeft(COHERENCE_TOTAL);
+    setPhase("out");
+    setRunning(true);
+  };
+
+  useEffect(() => {
+    if (!running) return;
+    const t = setTimeout(
+      () => setPhase((p) => (p === "in" ? "out" : "in")),
+      5000,
+    );
+    return () => clearTimeout(t);
+  }, [running, phase]);
+
+  useEffect(() => {
+    if (!running) return;
+    const i = setInterval(() => {
+      setSecondsLeft((s) => {
+        if (s <= 1) {
+          setRunning(false);
+          return 0;
+        }
+        return s - 1;
+      });
+    }, 1000);
+    return () => clearInterval(i);
+  }, [running]);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") close();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
+  const mm = String(Math.floor(secondsLeft / 60)).padStart(1, "0");
+  const ss = String(secondsLeft % 60).padStart(2, "0");
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="group mt-10 inline-flex items-center gap-3 rounded-full border border-ink/15 bg-cream/70 px-6 py-3 text-[12px] font-semibold uppercase tracking-[0.2em] text-ink backdrop-blur-sm transition-all duration-300 hover:border-gold hover:bg-gold hover:text-cream sm:text-[13px]"
+      >
+        <Heart className="h-4 w-4 animate-pulse" />
+        Cohérence cardiaque · 5 min
+      </button>
+
+      {open && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Cohérence cardiaque — respiration guidée"
+          className="fixed inset-0 z-[200] flex flex-col items-center justify-center overflow-hidden px-6"
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-cream via-creamsoft to-sand" />
+
+          <button
+            type="button"
+            onClick={close}
+            aria-label="Fermer la cohérence cardiaque"
+            className="absolute right-5 top-5 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 text-ink transition-colors hover:border-gold hover:bg-gold hover:text-cream"
+          >
+            <X className="h-5 w-5" />
+          </button>
+
+          <div className="relative flex flex-col items-center text-center">
+            <p className="flex items-center gap-3 text-[13px] font-semibold uppercase tracking-[0.3em] text-gold">
+              <span className="h-px w-8 bg-gold/60" />
+              Cohérence cardiaque
+              <span className="h-px w-8 bg-gold/60" />
+            </p>
+            <p className="mt-4 max-w-md font-display text-xl font-light italic leading-relaxed text-ink/70">
+              Installez-vous confortablement, respirez doucement au rythme du
+              cercle — 5 secondes d'inspiration, 5 secondes d'expiration.
+            </p>
+          </div>
+
+          <div className="relative mt-12 flex h-64 w-64 items-center justify-center sm:h-80 sm:w-80">
+            <span className="absolute inset-0 rounded-full border border-gold/40" />
+            <span className="absolute inset-5 rounded-full border border-gold/25" />
+            <div
+              className="absolute inset-0 flex items-center justify-center"
+              aria-hidden
+            >
+              <div
+                className="flex h-40 w-40 items-center justify-center rounded-full bg-gold/15 sm:h-52 sm:w-52"
+                style={{
+                  transform: phase === "in" ? "scale(1.2)" : "scale(0.75)",
+                  transition: running
+                    ? "transform 5s ease-in-out"
+                    : "transform 1.2s ease-in-out",
+                }}
+              >
+                <Heart className="h-8 w-8 text-gold" />
+              </div>
+            </div>
+            <p className="relative font-display text-2xl font-light italic text-ink">
+              {!started
+                ? "Prête ?"
+                : finished
+                  ? "Session terminée ✦"
+                  : running
+                    ? phase === "in"
+                      ? "Inspirez"
+                      : "Expirez"
+                    : "Pause"}
+            </p>
+          </div>
+
+          <p className="relative mt-8 font-display text-3xl font-light tabular-nums text-ink/80">
+            {mm}:{ss}
+          </p>
+
+          <div className="relative mt-10 flex flex-col items-center gap-4 sm:flex-row">
+            {!running ? (
+              <button
+                type="button"
+                onClick={start}
+                className="rounded-full bg-gold px-8 py-3.5 text-sm font-semibold tracking-wide text-cream transition-colors hover:bg-golddeep"
+              >
+                {finished
+                  ? "Recommencer une session"
+                  : started
+                    ? "Reprendre"
+                    : "Commencer · 5 minutes"}
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setRunning(false)}
+                className="rounded-full border border-ink/15 px-8 py-3.5 text-sm font-semibold tracking-wide text-ink transition-colors hover:border-gold hover:bg-gold hover:text-cream"
+              >
+                Faire une pause
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={close}
+              className="text-[13px] font-semibold uppercase tracking-[0.2em] text-ink/60 transition-colors hover:text-ink"
+            >
+              Fermer
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -267,6 +439,9 @@ function HomePage() {
               Vous guider sur la voie du bien-être — libérer les émotions,
               rééquilibrer les énergies, retrouver la paix intérieure.
             </p>
+            <div className="flex justify-center">
+              <CoherenceCardiaque />
+            </div>
           </div>
 
           <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-10 px-6 pb-10 lg:px-12">
