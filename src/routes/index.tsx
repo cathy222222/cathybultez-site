@@ -46,7 +46,8 @@ type Soin = {
   num: string;
   title: string;
   description: string;
-  extra?: { label: string; text: string }[];
+  description2?: string;
+  extra?: { label: string; text: string; note?: string }[];
   meta: { label: string; value: string }[];
 };
 
@@ -66,7 +67,9 @@ const soins: Soin[] = [
     num: "02",
     title: "Soin des 2 couronnes",
     description:
-      "Je vous propose également des soins pour vous aider dans la relation parents/enfants, les problèmes dans les fratries. Un soin puissant qui règle certaines problématiques entre un parent et son enfant, entre une fratrie, apporte des libérations, des compréhensions, de l'apaisement. Il peut également être réalisé avec un proche défunt. Ce soin peut aussi être fait individuellement pour vous rééquilibrer énergétiquement et émotionnellement, vous libérer et enlever des blocages.",
+      "Je vous propose également des soins pour vous aider dans la relation parents/enfants, les problèmes dans les fratries. Un soin puissant qui règle certaines problématiques entre un parent et son enfant, entre une fratrie, apporte des libérations, des compréhensions, de l'apaisement. Il peut également être réalisé avec un proche défunt.",
+    description2:
+      "Ce soin peut aussi être fait individuellement pour vous rééquilibrer énergétiquement et émotionnellement, vous libérer et enlever des blocages.",
     meta: [
       { label: "Prix", value: "90 € pour 2 personnes" },
       { label: "Individuel", value: "45 €" },
@@ -103,13 +106,18 @@ const soins: Soin[] = [
       },
       {
         label: "Huiles de massage",
-        text: "2 choix possibles contenant des huiles essentielles (huile végétale neutre possible en cas d'allergie, à signaler à la prise de rendez-vous). Option huiles issues du Massage Énergétique des 5 Continents : 85 € en cabinet, 90 € en extérieur — jusqu'à épuisement des stocks.",
+        text: "2 choix possibles contenant des huiles essentielles (huile végétale neutre possible en cas d'allergie, à signaler à la prise de rendez-vous).",
+        note: "Option huiles issues du Massage Énergétique des 5 Continents : 85 € en cabinet, 90 € en extérieur — jusqu'à épuisement des stocks.",
       },
     ],
     meta: [
       { label: "Durée", value: "1 h 30" },
       { label: "Prix", value: "80 € · Cabinet de Romeries" },
       { label: "Prix", value: "85 € · Extérieur SPA, établissements" },
+      {
+        label: "Option huiles 5 Continents",
+        value: "85 € en cabinet · 90 € en extérieur",
+      },
     ],
   },
   {
@@ -631,6 +639,11 @@ function HomePage() {
                 <p className="mt-5 max-w-2xl text-base font-light leading-relaxed text-inkmuted">
                   {soin.description}
                 </p>
+                {soin.description2 && (
+                  <p className="mt-6 max-w-2xl text-base font-light leading-relaxed text-inkmuted">
+                    {soin.description2}
+                  </p>
+                )}
                 {soin.extra && (
                   <dl className="mt-6 grid gap-4 sm:grid-cols-2">
                     {soin.extra.map((item) => (
@@ -644,6 +657,11 @@ function HomePage() {
                         <dd className="mt-2 text-sm font-light leading-relaxed text-inkmuted">
                           {item.text}
                         </dd>
+                        {item.note && (
+                          <p className="mt-4 text-sm font-semibold leading-relaxed text-rosedeep">
+                            {item.note}
+                          </p>
+                        )}
                       </div>
                     ))}
                   </dl>

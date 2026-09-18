@@ -47,6 +47,7 @@
   --color-goldline: var(--goldline);
   --color-olive: var(--olive);
   --color-line: var(--line);
+  --color-rosedeep: var(--rosedeep);
 
   --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Cormorant Garamond", Georgia, serif;
@@ -69,6 +70,7 @@
   --goldline: #c9b787;
   --olive: #7a6428;
   --line: #e7dfcc;
+  --rosedeep: #b23a6b;
 
   --background: var(--cream);
   --foreground: var(--ink);
