@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { Menu, Phone, X } from "lucide-react";
 
 const navLinks = [
-  { label: "L'approche", href: "#approche" },
-  { label: "Soins", href: "#soins" },
-  { label: "À propos", href: "#a-propos" },
-  { label: "Bon cadeau", href: "#bon-cadeau" },
-  { label: "Contact", href: "#contact" },
+  { label: "L'approche", href: "/#approche" },
+  { label: "Soins", href: "/#soins" },
+  { label: "À propos", href: "/#a-propos" },
+  { label: "Bon cadeau", href: "/#bon-cadeau" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export function Header() {
@@ -29,11 +29,13 @@ export function Header() {
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-12">
-        <a
-          href="#"
-          className="font-display text-2xl font-medium tracking-tight text-ink"
-        >
-          Cathy <span className="italic text-gold">Bultez</span>
+        <a href="/" className="flex flex-col text-ink">
+          <span className="font-display text-2xl font-medium tracking-tight">
+            Cathy <span className="italic text-gold">Bultez</span>
+          </span>
+          <span className="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-ink/60">
+            Romeries - Région hauts de France - 59
+          </span>
         </a>
 
         <div className="hidden items-center gap-8 lg:flex">
@@ -81,9 +83,7 @@ export function Header() {
         }`}
       >
         <div className="flex items-center justify-between">
-          <span className="font-display text-2xl font-medium text-ink">
-            Menu
-          </span>
+          <span className="font-display text-2xl font-medium text-ink">Menu</span>
           <button
             type="button"
             className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 text-ink"

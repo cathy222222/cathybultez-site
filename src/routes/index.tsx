@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowDown, Gift, Heart, Phone, X } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import fleurDeVie from "@/assets/Fleur de vie.png";
 import soinMainsTete from "@/assets/soin-mains-tete.jpg";
 import femmeApaiseeMer from "@/assets/femme-apaisée-mer.jpg";
 
@@ -15,13 +16,7 @@ const IMAGES = {
     "https://images.unsplash.com/photo-1461468611824-46457c0e11fd?auto=format&fit=crop&w=1600&q=80",
 };
 
-const marqueeWords = [
-  "Bien-être",
-  "Lâcher-prise",
-  "Énergie",
-  "Sérénité",
-  "Harmonie corporelle",
-];
+const marqueeWords = ["Bien-être", "Lâcher-prise", "Énergie", "Sérénité", "Harmonie corporelle"];
 
 const motifs = [
   "Fatigue",
@@ -107,15 +102,15 @@ const soins: Soin[] = [
       {
         label: "Huiles de massage",
         text: "2 choix possibles contenant des huiles essentielles (huile végétale neutre possible en cas d'allergie, à signaler à la prise de rendez-vous).",
-        note: "Option huiles issues du Massage Énergétique des 5 Continents : 85 € en cabinet, 90 € en extérieur — jusqu'à épuisement des stocks.",
+        note: "Option : huiles issues du Massage Énergétique des 5 Continents : 85 € en cabinet, 90 € en extérieur\nJusqu'à épuisement des stocks.",
       },
     ],
     meta: [
       { label: "Durée", value: "1 h 30" },
       { label: "Prix", value: "80 € · Cabinet de Romeries" },
-      { label: "Prix", value: "85 € · Extérieur SPA, établissements" },
+      { label: "", value: "85 € · Extérieur SPA, maisons d'hôtes" },
       {
-        label: "Option huiles 5 Continents",
+        label: "Option huiles 5 Continents:",
         value: "85 € en cabinet · 90 € en extérieur",
       },
     ],
@@ -131,7 +126,8 @@ const soins: Soin[] = [
       { label: "Extérieur", value: "Me consulter" },
       {
         label: "Options",
-        value: "Temps réduits possibles (15, 20, 30 mn) — entreprises, CE, institutions, résidences seniors",
+        value:
+          "Temps réduits possibles (15, 20, 30 mn) — entreprises, CE, institutions, résidences seniors",
       },
       { label: "À domicile", value: "Déplacement possible chez les personnes âgées" },
     ],
@@ -245,10 +241,7 @@ function CoherenceCardiaque() {
 
   useEffect(() => {
     if (!running) return;
-    const t = setTimeout(
-      () => setPhase((p) => (p === "in" ? "out" : "in")),
-      5000,
-    );
+    const t = setTimeout(() => setPhase((p) => (p === "in" ? "out" : "in")), 5000);
     return () => clearTimeout(t);
   }, [running, phase]);
 
@@ -286,7 +279,10 @@ function CoherenceCardiaque() {
         className="group mt-10 inline-flex items-center gap-3 rounded-full border border-ink/15 bg-cream/70 px-6 py-3 text-[12px] font-semibold uppercase tracking-[0.2em] text-ink backdrop-blur-sm transition-all duration-300 hover:border-gold hover:bg-gold hover:text-cream sm:text-[13px]"
       >
         <Heart className="h-4 w-4 animate-pulse" />
-        Cohérence cardiaque · 5 min
+        <span className="flex flex-col items-center gap-0.5">
+          <span>Cohérence cardiaque · 5 min</span>
+          <span className="text-[10px] tracking-[0.25em] text-ink/55">cliquez</span>
+        </span>
       </button>
 
       {open && (
@@ -314,29 +310,20 @@ function CoherenceCardiaque() {
               <span className="h-px w-8 bg-gold/60" />
             </p>
             <p className="mt-4 max-w-md font-display text-xl font-light italic leading-relaxed text-ink/70">
-              Installez-vous confortablement, respirez doucement au rythme du
-              cercle — 5 secondes d'inspiration, 5 secondes d'expiration.
+              Installez-vous confortablement, respirez doucement au rythme du cercle — 5 secondes
+              d'inspiration, 5 secondes d'expiration.
             </p>
           </div>
 
           <div className="relative mt-12 flex h-64 w-64 items-center justify-center sm:h-80 sm:w-80">
             <span className="absolute inset-0 rounded-full border border-gold/40" />
             <span className="absolute inset-5 rounded-full border border-gold/25" />
-            <div
-              className="absolute inset-0 flex items-center justify-center"
-              aria-hidden
-            >
+            <div className="absolute inset-0 flex items-center justify-center" aria-hidden>
               <div
                 className="flex h-40 w-40 flex-col items-center justify-center rounded-full bg-gold/15 sm:h-56 sm:w-56"
                 style={{
-                  transform: finished
-                    ? "scale(1)"
-                    : phase === "in"
-                      ? "scale(1.2)"
-                      : "scale(0.75)",
-                  transition: running
-                    ? "transform 5s ease-in-out"
-                    : "transform 1.2s ease-in-out",
+                  transform: finished ? "scale(1)" : phase === "in" ? "scale(1.2)" : "scale(0.75)",
+                  transition: running ? "transform 5s ease-in-out" : "transform 1.2s ease-in-out",
                 }}
               >
                 <Heart className="h-6 w-6 text-gold" />
@@ -404,7 +391,10 @@ export const Route = createFileRoute("/")({
         content:
           "Cathy Bultez vous guide sur la voie du bien-être à Romeries : accompagnement thérapeutique, massages énergétiques intuitifs, soins à distance et bons cadeaux.",
       },
-      { property: "og:title", content: "Cathy Bultez — Thérapeute Énergétique · Massothérapeute à Romeries" },
+      {
+        property: "og:title",
+        content: "Cathy Bultez — Thérapeute Énergétique · Massothérapeute à Romeries",
+      },
       {
         property: "og:description",
         content:
@@ -444,12 +434,11 @@ function HomePage() {
             <h1 className="sr-only">
               Cathy Bultez — Thérapeute Énergétique · Massothérapeute à Romeries
             </h1>
-            <p className="text-[13px] font-semibold uppercase tracking-[0.35em] text-ink/70 sm:text-sm">
+            <p className="text-sm font-semibold uppercase tracking-[0.35em] text-ink/70 sm:text-base">
               Thérapeute Énergétique · Massothérapeute
             </p>
             <p className="mx-auto mt-10 max-w-xl text-base font-light leading-relaxed text-inkmuted sm:text-lg">
-              Vous guider sur la voie du bien-être — libérer les émotions,
-              rééquilibrer les énergies, retrouver la paix intérieure.
+              Libérer les émotions, rééquilibrer les énergies, retrouver la paix intérieure.
             </p>
             <div className="flex justify-center">
               <CoherenceCardiaque />
@@ -459,8 +448,8 @@ function HomePage() {
           <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-10 px-6 pb-10 lg:px-12">
             <blockquote className="hidden max-w-md text-center sm:block">
               <p className="font-display text-lg font-light italic leading-relaxed text-ink/70">
-                « Les maux du corps sont les mots de l'âme. Ainsi on ne doit
-                pas guérir le corps sans chercher à guérir l'âme. »
+                « Les maux du corps sont les mots de l'âme. Ainsi on ne doit pas guérir le corps
+                sans chercher à guérir l'âme. »
               </p>
               <cite className="mt-3 block text-xs font-semibold uppercase tracking-[0.25em] not-italic text-gold">
                 — Platon
@@ -508,12 +497,22 @@ function HomePage() {
       </section>
 
       {/* ============ APPROCHE ============ */}
-      <section id="approche" className="mx-auto max-w-7xl scroll-mt-24 px-6 py-28 lg:px-12 lg:py-40">
-        <div className="mx-auto max-w-3xl text-center">
+      <section
+        id="approche"
+        className="relative mx-auto max-w-7xl scroll-mt-24 overflow-hidden px-6 py-28 lg:px-12 lg:py-40"
+      >
+        <img
+          src={fleurDeVie}
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute left-1/2 -top-8 z-0 h-56 w-56 -translate-x-1/2 object-contain opacity-20 sm:-top-12 sm:h-64 sm:w-64"
+          width={5760}
+          height={3456}
+        />
+        <div className="relative z-10 mx-auto max-w-3xl pt-8 text-center sm:pt-10">
           <Eyebrow>Mon approche</Eyebrow>
           <h2 className="reveal mt-8 font-display text-5xl font-light leading-[1.05] tracking-tight sm:text-6xl">
-            Vous guider sur la voie du{" "}
-            <span className="italic text-gold">bien-être</span>.
+            Vous guider sur la voie du <span className="italic text-gold">bien-être</span>.
           </h2>
         </div>
 
@@ -534,32 +533,27 @@ function HomePage() {
 
           <div className="space-y-6 text-base font-light leading-relaxed text-inkmuted sm:text-lg">
             <p className="reveal font-display text-xl font-medium italic text-ink sm:text-2xl">
-              Se faire accompagner par un·e thérapeute énergétique, ça sert à
-              quoi ?
+              Se faire accompagner par un·e thérapeute énergétique, ça sert à quoi ?
             </p>
             <p className="reveal">
-              À amener des libérations émotionnelles, des déblocages dans les
-              situations de vie, des guérisons physiques… Les maladies ou les
-              sensations de mal-être ont bien souvent une cause émotionnelle.
-              Nous allons ensemble chercher cette cause, enlever les mémoires
-              cellulaires liées aux événements douloureux — vécus de façon
-              consciente ou même inconsciente — et rétablir l'équilibre
-              énergétique défaillant.
+              À amener des libérations émotionnelles, des déblocages dans les situations de vie, des
+              guérisons physiques… Les maladies ou les sensations de mal-être ont bien souvent une
+              cause émotionnelle. Nous allons ensemble chercher cette cause, enlever les mémoires
+              cellulaires liées aux événements douloureux — vécus de façon consciente ou même
+              inconsciente — et rétablir l'équilibre énergétique défaillant.
             </p>
             <p className="reveal">
-              Tout ceci vous amenant à terme à revoir certains schémas de
-              pensées et de comportements, à vous sentir en paix intérieurement.
-              En complément d'un accompagnement, viendra parfois se glisser un
-              massage énergétique pour libérer les émotions cristallisées dans
-              les organes et qu'on n'arrive pas à exprimer. Et inversement,
-              certaines personnes commenceront par un massage et continueront
-              avec un accompagnement.
+              Tout ceci vous amenant à terme à revoir certains schémas de pensées et de
+              comportements, à vous sentir en paix intérieurement. En complément d'un
+              accompagnement, viendra parfois se glisser un massage énergétique pour libérer les
+              émotions cristallisées dans les organes et qu'on n'arrive pas à exprimer. Et
+              inversement, certaines personnes commenceront par un massage et continueront avec un
+              accompagnement.
             </p>
             <p className="reveal">
-              N'oublions pas le monde de nos envolés. Je constate bien souvent
-              que ce sont vos défunts qui nous amènent à nous rencontrer — soit
-              parce qu'ils veulent vous aider, soit parce qu'ils ont besoin
-              d'aide.
+              N'oublions pas le monde de nos envolés. Je constate bien souvent que ce sont vos
+              défunts qui nous amènent à nous rencontrer — soit parce qu'ils veulent vous aider,
+              soit parce qu'ils ont besoin d'aide.
             </p>
             <blockquote className="reveal border-l-2 border-gold pl-6">
               <p className="font-display text-2xl font-light italic leading-snug text-ink">
@@ -579,12 +573,10 @@ function HomePage() {
           <div className="mx-auto max-w-4xl text-center">
             <Eyebrow>Le toucher, l'écoute, l'intuition</Eyebrow>
             <h2 className="reveal mt-8 font-display text-5xl font-light leading-[1.05] tracking-tight sm:text-6xl">
-              Ce qui peut vous amener à{" "}
-              <span className="italic text-gold">consulter</span>
+              Ce qui peut vous amener à <span className="italic text-gold">consulter</span>
             </h2>
             <p className="reveal mx-auto mt-6 max-w-2xl text-base font-light leading-relaxed text-inkmuted sm:text-lg">
-              Que ce soit pour des maux physiques ou émotionnels, en présentiel
-              ou à distance.
+              Que ce soit pour des maux physiques ou émotionnels, en présentiel ou à distance.
             </p>
           </div>
           <div className="reveal mx-auto mt-14 flex max-w-4xl flex-wrap justify-center gap-3">
@@ -605,13 +597,14 @@ function HomePage() {
         <div className="grid items-end gap-10 lg:grid-cols-[1fr_auto]">
           <div className="max-w-3xl">
             <Eyebrow>
-              <span className="flex items-center gap-3">
-                Les soins
-              </span>
+              <span className="flex items-center gap-3">Les soins</span>
             </Eyebrow>
             <h2 className="reveal mt-8 text-center font-display text-5xl font-light leading-[1.05] tracking-tight sm:text-6xl lg:text-left">
               Six chemins vers <span className="italic text-gold">l'équilibre</span>
             </h2>
+            <p className="reveal mt-5 text-sm font-light text-inkmuted lg:text-left">
+              Tarifs en vigueur au 15/10/2026.
+            </p>
           </div>
           <div className="reveal hidden overflow-hidden rounded-[2rem] lg:block lg:w-64">
             <img
@@ -658,8 +651,22 @@ function HomePage() {
                           {item.text}
                         </dd>
                         {item.note && (
-                          <p className="mt-4 text-sm font-semibold leading-relaxed text-rosedeep">
-                            {item.note}
+                          <p className="mt-4 text-sm leading-relaxed text-rosedeep">
+                            {item.note.split("\n").map((line, index) => (
+                              <span
+                                key={line}
+                                className={`block ${index === 1 ? "font-bold" : ""}`}
+                              >
+                                {index === 0 ? (
+                                  <>
+                                    <strong>Option</strong>
+                                    {line.slice("Option".length)}
+                                  </>
+                                ) : (
+                                  line
+                                )}
+                              </span>
+                            ))}
                           </p>
                         )}
                       </div>
@@ -670,10 +677,12 @@ function HomePage() {
               <dl className="flex flex-col gap-4 lg:min-w-64 lg:text-right">
                 {soin.meta.map((m, i) => (
                   <div key={`${m.label}-${i}`}>
-                    <dt className="text-[11px] font-semibold uppercase tracking-[0.2em] text-ink/50">
-                      {m.label}
-                    </dt>
-                    <dd className="mt-1 font-display text-xl font-medium text-ink">
+                    {m.label && (
+                      <dt className="text-[11px] font-semibold uppercase tracking-[0.2em] text-ink/50">
+                        {m.label}
+                      </dt>
+                    )}
+                    <dd className={m.label ? "mt-1 font-display text-xl font-medium text-ink" : "font-display text-xl font-medium text-ink"}>
                       {m.value}
                     </dd>
                   </div>
@@ -683,10 +692,6 @@ function HomePage() {
           ))}
         </div>
 
-        <p className="reveal mt-10 text-center text-sm font-light text-inkmuted">
-          Tarifs en vigueur au 15/10/2026.
-        </p>
-
       </section>
 
       {/* ============ RÉACTIONS ============ */}
@@ -695,15 +700,13 @@ function HomePage() {
           <div className="text-center">
             <Eyebrow>Après un soin</Eyebrow>
             <h2 className="reveal mt-8 font-display text-5xl font-light leading-[1.05] tracking-tight sm:text-6xl">
-              Réactions éventuelles{" "}
-              <span className="italic text-gold">après un soin</span>
+              Réactions éventuelles <span className="italic text-gold">après un soin</span>
             </h2>
           </div>
           <p className="reveal mx-auto mt-8 max-w-3xl text-center text-base font-light leading-relaxed text-inkmuted sm:text-lg">
-            Après un soin énergétique, certaines personnes continuent à
-            ressentir des émotions ou des sensations pendant quelque temps. Ces
-            réactions varient d'une personne à l'autre — et le bien-être n'est
-            pas toujours immédiat. Ne rien ressentir pendant la séance ne
+            Après un soin énergétique, certaines personnes continuent à ressentir des émotions ou
+            des sensations pendant quelque temps. Ces réactions varient d'une personne à l'autre —
+            et le bien-être n'est pas toujours immédiat. Ne rien ressentir pendant la séance ne
             signifie pas une absence d'effet.
           </p>
           <div className="reveal mt-16 grid gap-px overflow-hidden rounded-3xl border border-ink/10 bg-ink/10 sm:grid-cols-2 lg:grid-cols-3">
@@ -725,10 +728,14 @@ function HomePage() {
             ))}
           </div>
         </div>
+
       </section>
 
       {/* ============ À PROPOS ============ */}
-      <section id="a-propos" className="mx-auto max-w-7xl scroll-mt-24 px-6 py-28 lg:px-12 lg:py-40">
+      <section
+        id="a-propos"
+        className="mx-auto max-w-7xl scroll-mt-24 px-6 py-28 lg:px-12 lg:py-40"
+      >
         <div className="mx-auto max-w-3xl text-center">
           <Eyebrow>À propos</Eyebrow>
           <h2 className="reveal mt-8 font-display text-5xl font-light leading-[1.05] tracking-tight sm:text-6xl">
@@ -738,10 +745,9 @@ function HomePage() {
 
         <div className="reveal mx-auto mt-16 max-w-2xl space-y-6 text-base font-light leading-relaxed text-inkmuted sm:text-lg">
           <p>
-            Après une première vie professionnelle classique, j'ai ressenti
-            l'appel profond de ma mission de vie : accompagner les autres sur
-            leur chemin. La seule intention que je pose est de vous aider à
-            retrouver davantage de paix, d'amour et de lumière en vous.
+            Après une première vie professionnelle classique, j'ai ressenti l'appel profond de ma
+            mission de vie : accompagner les autres sur leur chemin. La seule intention que je pose
+            est de vous aider à retrouver davantage de paix, d'amour et de lumière en vous.
           </p>
           <div>
             <h3 className="text-[13px] font-semibold uppercase tracking-[0.3em] text-gold">
@@ -770,6 +776,28 @@ function HomePage() {
         </div>
       </section>
 
+      {/* ============ AVIS ============ */}
+      <section className="border-y border-ink/10 bg-creamsoft py-24 lg:py-32">
+        <div className="mx-auto max-w-3xl px-6 text-center lg:px-12">
+          <Eyebrow>Avis Google</Eyebrow>
+          <h2 className="reveal mt-8 font-display text-5xl font-light leading-[1.05] tracking-tight sm:text-6xl">
+            Votre expérience compte
+          </h2>
+          <p className="reveal mx-auto mt-6 max-w-2xl text-base font-light leading-relaxed text-inkmuted sm:text-lg">
+            Votre témoignage peut être précieux pour une personne qui a besoin d'aide. Elle peut
+            décider de sortir de sa problématique.
+          </p>
+          <a
+            href="https://www.google.com/maps/place/Cathy+Bultez+-+Praticienne+en+Massages+et+Bien-Etre/@50.2445525,3.6416956,17z/data=!3m1!4b1!4m6!3m5!1s0x47c28bbe74794fd9:0x94daa5c5b0e3d7e!8m2!3d50.2445525!4d3.6442705!16s%2Fg%2F11krdl445g?entry=ttu"
+            target="_blank"
+            rel="noreferrer"
+            className="reveal mt-8 inline-flex rounded-full border border-ink/15 px-7 py-3.5 text-sm font-semibold uppercase tracking-[0.15em] text-ink transition-colors hover:border-gold hover:bg-gold hover:text-cream"
+          >
+            Lire les avis Google
+          </a>
+        </div>
+      </section>
+
       {/* ============ BON CADEAU ============ */}
       <section
         id="bon-cadeau"
@@ -790,24 +818,20 @@ function HomePage() {
               Le <span className="italic">bon cadeau</span>
             </h2>
             <p className="reveal mt-8 text-base font-light leading-relaxed text-cream/90 sm:text-lg">
-              Pour un anniversaire, Noël, la Saint-Valentin, un enterrement de
-              vie de jeune fille, une naissance ou la fête des Mères et
-              Grands-Mères — offrez une parenthèse de bien-être. Le montant est
-              libre et peut être déduit d'une prestation. Bon valable{" "}
-              <span className="font-semibold">6 mois</span> à compter de la date
-              d'achat.
+              Pour un anniversaire, Noël, la Saint-Valentin, un enterrement de vie de jeune fille,
+              une naissance ou la fête des Mères et Grands-Mères — offrez une parenthèse de
+              bien-être. Le montant est libre et peut être déduit d'une prestation. Bon valable{" "}
+              <span className="font-semibold">6 mois</span> à compter de la date d'achat.
             </p>
             <p className="reveal mt-5 text-sm font-light leading-relaxed text-cream/75">
-              Réservation sur place à Romeries (contactez-moi au préalable) ou à
-              distance en appelant le 06 10 19 75 58 pour obtenir un numéro de
-              bon cadeau.
+              Réservation sur place à Romeries ou par mail.
             </p>
             <a
               href="tel:0610197558"
               className="reveal group mt-10 inline-flex items-center gap-3 rounded-full bg-cream px-9 py-4 text-sm font-semibold uppercase tracking-[0.15em] text-ink transition-all duration-300 hover:bg-ink hover:text-cream"
             >
               <Phone className="h-4 w-4 transition-transform duration-300 group-hover:rotate-12" />
-              Réserver un bon cadeau
+              06 10 19 75 58
             </a>
           </div>
         </div>
