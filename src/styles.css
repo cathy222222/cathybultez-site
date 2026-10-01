@@ -93,6 +93,7 @@
   --ring: var(--gold);
 }
 
+
 @layer base {
   * {
     border-color: var(--color-border);

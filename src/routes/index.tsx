@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ArrowDown, Gift, Heart, Phone, X } from "lucide-react";
+import { ArrowDown, ChevronDown, Gift, Heart, Phone, X } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import fleurDeVie from "@/assets/Fleur de vie.png";
+import mainsDivines from "@/assets/Mains divines.png";
 import soinMainsTete from "@/assets/soin-mains-tete.jpg";
 import femmeApaiseeMer from "@/assets/femme-apaisée-mer.jpg";
 
@@ -14,12 +15,17 @@ const IMAGES = {
     "https://images.pexels.com/photos/34279942/pexels-photo-34279942.jpeg?auto=compress&cs=tinysrgb&w=1600",
   silhouette:
     "https://images.unsplash.com/photo-1461468611824-46457c0e11fd?auto=format&fit=crop&w=1600&q=80",
+  roseCrystals: femmeApaiseeMer,
+  warmHands:
+    "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1800&q=80",
+  divineHands: mainsDivines,
 };
 
 const marqueeWords = ["Bien-être", "Lâcher-prise", "Énergie", "Sérénité", "Harmonie corporelle"];
 
 const motifs = [
   "Fatigue",
+  "Blocages dans plusieurs domaines",
   "Stress",
   "Angoisses",
   "Anxiété",
@@ -51,7 +57,7 @@ const soins: Soin[] = [
     num: "01",
     title: "Accompagnement thérapeutique",
     description:
-      "Une thérapie demande généralement plusieurs séances, selon votre besoin et votre évolution. Selon les situations, différents outils peuvent être mobilisés : libération par la parole, rééquilibrage énergétique, travail sur la mémoire, approches transgénérationnelle, karmique ou prénatale, sophronisation thérapeutique, bol chantant tibétain, tambour… Chaque séance est une parenthèse : un temps pour déposer les tensions, apaiser le mental et relancer la circulation de l'énergie vitale.",
+      "Une thérapie demande généralement plusieurs séances, en fonction de votre besoin et de votre évolution. Selon les situations, différents outils peuvent être mobilisés : libération par la parole, rééquilibrage énergétique, nettoyage des mémoires émotionnelles, prénatales, transgénérationnelles et karmiques, sophrosonisation thérapeutique, bol chantant tibétain, tambour… Chaque séance est une parenthèse : un temps pour déposer les tensions, apaiser le mental et relancer la circulation de l'énergie vitale.",
     meta: [
       { label: "Durée", value: "1 h 30" },
       { label: "Prix", value: "60 €" },
@@ -62,12 +68,12 @@ const soins: Soin[] = [
     num: "02",
     title: "Soin des 2 couronnes",
     description:
-      "Je vous propose également des soins pour vous aider dans la relation parents/enfants, les problèmes dans les fratries. Un soin puissant qui règle certaines problématiques entre un parent et son enfant, entre une fratrie, apporte des libérations, des compréhensions, de l'apaisement. Il peut également être réalisé avec un proche défunt.",
+      "Je vous propose également des soins pour vous aider dans la relation parents/enfants, les problèmes dans les fratries. Un soin puissant qui règle certaines problématiques entre un parent et son enfant, entre une fratrie, apporte des libérations, des compréhensions, de l'apaisement. Il peut également être réalisé avec un proche défunt. Ce soin répare l'arbre familial également.",
     description2:
       "Ce soin peut aussi être fait individuellement pour vous rééquilibrer énergétiquement et émotionnellement, vous libérer et enlever des blocages.",
     meta: [
       { label: "Prix", value: "90 € pour 2 personnes" },
-      { label: "Individuel", value: "45 €" },
+      { label: "Individuel", value: "60 €" },
       { label: "Lieu", value: "À distance sur photos" },
     ],
   },
@@ -382,6 +388,63 @@ function CoherenceCardiaque() {
   );
 }
 
+function HuilesMassageDetails() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="mt-5">
+      <button
+        type="button"
+        onClick={() => setOpen((value) => !value)}
+        aria-expanded={open}
+        className="inline-flex items-center gap-2 text-sm font-semibold text-gold transition-colors hover:text-golddeep"
+      >
+        {open ? "Masquer les huiles" : "Découvrir les huiles"}
+        <ChevronDown className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+
+      {open && (
+        <div className="mt-5 space-y-7 border-t border-ink/10 pt-5 text-sm leading-relaxed text-inkmuted">
+          <div>
+            <h4 className="font-display text-2xl font-medium text-ink">Sérénité Zen</h4>
+            <p className="mt-3">
+              Cette huile de massage est constituée d'huiles végétales et d'un mélange léger
+              d'huiles essentielles d'orange et de lavandin, permettant d'accentuer la sensation de
+              bien-être liée à un massage intense. Relâchez-vous complètement de manière à évacuer
+              les petits tracas du quotidien.
+            </p>
+            <p className="mt-3">
+              Cette huile et son parfum fruité vous permettront de vous évader et de vous détendre
+              pleinement.
+            </p>
+            <p className="mt-3">
+              <strong className="font-semibold text-ink">Composition :</strong> huiles végétales
+              bio de Tournesol, Sésame, Amande douce et huiles essentielles bio (3,75 %) Orange,
+              Petit grain, Lavandin grosso.
+            </p>
+          </div>
+
+          <div>
+            <h4 className="font-display text-2xl font-medium text-ink">Relaxation</h4>
+            <p className="mt-3">
+              L'huile de massage relaxation est une synergie de 7 huiles essentielles biologiques.
+              Elle a été spécialement formulée pour aider à lutter contre les tensions physiques et
+              le stress au quotidien. Elle est formulée avec des huiles essentielles biologiques
+              reconnues pour leurs propriétés relaxantes et décontractantes.
+            </p>
+            <p className="mt-3">
+              <strong className="font-semibold text-ink">Composition :</strong> formulée avec les
+              7 huiles essentielles de Ylang-ylang, Lavandin, Petit grain,
+              Lavande, Mandarine verte, Bergamote, Orange douce, ainsi qu'un extrait de Vanille aux
+              propriétés apaisantes.
+            </p>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -420,7 +483,7 @@ function HomePage() {
       <section className="relative flex min-h-screen flex-col justify-between overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src={femmeApaiseeMer}
+            src={IMAGES.divineHands}
             alt=""
             className="h-full w-full object-cover object-center"
             width={1024}
@@ -434,14 +497,32 @@ function HomePage() {
             <h1 className="sr-only">
               Cathy Bultez — Thérapeute Énergétique · Massothérapeute à Romeries
             </h1>
-            <p className="text-sm font-semibold uppercase tracking-[0.35em] text-ink/70 sm:text-base">
-              Thérapeute Énergétique · Massothérapeute
+            <p className="text-base font-bold uppercase tracking-[0.35em] text-ink/70 sm:text-lg">
+              <strong>Thérapeute Énergétique · Massothérapeute</strong>
             </p>
-            <p className="mx-auto mt-10 max-w-xl text-base font-light leading-relaxed text-inkmuted sm:text-lg">
-              Libérer les émotions, rééquilibrer les énergies, retrouver la paix intérieure.
+            <p className="mx-auto mt-10 max-w-2xl text-base font-light leading-relaxed text-inkmuted sm:text-lg">
+              Accompagnement énergétique et thérapeutique pour apaiser les tensions, libérer les
+              blocages et retrouver un équilibre durable dans votre vie quotidienne.
             </p>
-            <div className="flex justify-center">
-              <CoherenceCardiaque />
+            <p className="mx-auto mt-4 max-w-xl text-base font-light leading-relaxed text-inkmuted sm:text-lg">
+              <strong className="font-black tracking-wide text-ink">
+                Séances à distance, en présentiel ou à domicile, selon les soins.
+              </strong>
+            </p>
+
+            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <a
+                href="#contact"
+                className="inline-flex items-center justify-center rounded-full bg-gold px-8 py-3.5 text-sm font-semibold uppercase tracking-[0.15em] text-cream transition-all duration-300 hover:bg-golddeep"
+              >
+                Prendre rendez-vous
+              </a>
+              <a
+                href="#soins"
+                className="inline-flex items-center justify-center rounded-full border border-ink/15 bg-cream/70 px-8 py-3.5 text-sm font-semibold uppercase tracking-[0.15em] text-ink transition-all duration-300 hover:border-gold hover:bg-gold hover:text-cream"
+              >
+                Découvrir les soins
+              </a>
             </div>
           </div>
 
@@ -455,6 +536,9 @@ function HomePage() {
                 — Platon
               </cite>
             </blockquote>
+            <div className="flex justify-center">
+              <CoherenceCardiaque />
+            </div>
             <a
               href="#approche"
               className="group flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-ink/60 transition-colors hover:text-ink"
@@ -518,42 +602,44 @@ function HomePage() {
 
         <div className="mx-auto mt-16 grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
           <div className="reveal relative mx-auto w-full max-w-sm">
-            <div className="overflow-hidden rounded-[2rem]">
+            <div className="absolute -inset-3 rounded-[2.6rem] bg-gradient-to-br from-gold/15 via-[#f2dfbb]/30 to-[#d7b57b]/20 blur-sm" />
+            <div className="relative overflow-hidden rounded-[2.5rem] border border-gold/30 bg-[#f6eee3] p-2 shadow-[0_24px_60px_rgba(102,74,31,0.12)]">
               <img
                 src={soinMainsTete}
                 alt="Soin énergétique avec les mains posées près de la tête"
-                className="aspect-[4/5] w-full object-cover transition-transform duration-700 hover:scale-105"
+                className="aspect-[4/5] w-full rounded-[2rem] object-cover transition-transform duration-700 hover:scale-105"
                 loading="lazy"
                 width={1024}
                 height={1280}
               />
             </div>
-            <div className="absolute -bottom-5 -right-4 -z-10 h-full w-full rounded-[2rem] border border-goldline sm:-right-5" />
+            <div className="absolute -bottom-5 -right-4 -z-10 h-full w-full rounded-[2.5rem] border-2 border-gold/40 bg-gold/5 sm:-right-5" />
           </div>
 
           <div className="space-y-6 text-base font-light leading-relaxed text-inkmuted sm:text-lg">
             <p className="reveal font-display text-xl font-medium italic text-ink sm:text-2xl">
-              Se faire accompagner par un·e thérapeute énergétique, ça sert à quoi ?
+              Se faire accompagner, c’est retrouver un espace de douceur, de vérité et d’équilibre.
             </p>
             <p className="reveal">
-              À amener des libérations émotionnelles, des déblocages dans les situations de vie, des
-              guérisons physiques… Les maladies ou les sensations de mal-être ont bien souvent une
-              cause émotionnelle. Nous allons ensemble chercher cette cause, enlever les mémoires
-              cellulaires liées aux événements douloureux — vécus de façon consciente ou même
-              inconsciente — et rétablir l'équilibre énergétique défaillant.
+              À travers l’écoute, le touché et l’intuition, j’accompagne les personnes qui traversent
+              des périodes de stress, de fatigue, de douleurs, de blocages émotionnels ou de
+              difficultés relationnelles. Le corps garde souvent des traces de ce que l’esprit ne
+              formule pas toujours clairement. C’est souvent là que les signes de mal-être prennent
+              naissance : dans une tension persistante, une incompréhension profonde, un sentiment de
+              vide, d’angoisse ou de déséquilibre.
             </p>
             <p className="reveal">
-              Tout ceci vous amenant à terme à revoir certains schémas de pensées et de
-              comportements, à vous sentir en paix intérieurement. En complément d'un
-              accompagnement, viendra parfois se glisser un massage énergétique pour libérer les
-              émotions cristallisées dans les organes et qu'on n'arrive pas à exprimer. Et
-              inversement, certaines personnes commenceront par un massage et continueront avec un
-              accompagnement.
+              Ensemble, nous pouvons identifier les causes profondes, libérer les mémoires et les
+              émotions enfouies, rétablir l’harmonie énergétique et retrouver un meilleur équilibre
+              dans sa vie. Certaines personnes passent par un massage énergétique pour libérer ce qui
+              est bloqué dans le corps ; d’autres privilégient un accompagnement thérapeutique plus
+              profond. Les deux peuvent se compléter naturellement.
             </p>
             <p className="reveal">
-              N'oublions pas le monde de nos envolés. Je constate bien souvent que ce sont vos
-              défunts qui nous amènent à nous rencontrer — soit parce qu'ils veulent vous aider,
-              soit parce qu'ils ont besoin d'aide.
+              Il arrive aussi que le travail s’étende au lien familial, aux blessures transgénérationnelles,
+              aux relations entre parents et enfants, ou à la présence de proches défunts qui
+              souhaitent être accompagnés dans leur chemin. Les soins peuvent alors ouvrir des
+              espaces de compréhension, de libération et de paix.
             </p>
             <blockquote className="reveal border-l-2 border-gold pl-6">
               <p className="font-display text-2xl font-light italic leading-snug text-ink">
@@ -603,10 +689,10 @@ function HomePage() {
               Six chemins vers <span className="italic text-gold">l'équilibre</span>
             </h2>
             <p className="reveal mt-5 text-sm font-light text-inkmuted lg:text-left">
-              Tarifs en vigueur au 15/10/2026.
+              <strong>Tarifs en vigueur au 15/10/2026.</strong>
             </p>
           </div>
-          <div className="reveal hidden overflow-hidden rounded-[2rem] lg:block lg:w-64">
+          <div className="reveal mx-auto w-full max-w-[16rem] overflow-hidden rounded-[2rem] lg:mx-0 lg:w-64">
             <img
               src={IMAGES.stones}
               alt="Pierres zen empilées"
@@ -669,6 +755,7 @@ function HomePage() {
                             ))}
                           </p>
                         )}
+                        {item.label === "Huiles de massage" && <HuilesMassageDetails />}
                       </div>
                     ))}
                   </dl>
