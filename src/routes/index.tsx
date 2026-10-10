@@ -103,7 +103,7 @@ const soins: Soin[] = [
       },
       {
         label: "Précautions",
-        text: "Grossesse et allaitement, épilepsie, cancers hormono-dépendants, certains traitements, problèmes cutanés, hypersensibilité, enfants de moins de 10 ans.",
+        text: "Si vous êtes allergique ou intolérant(e) aux huiles essentielles, je peux réaliser ce massage avec une huile végétale neutre, merci de le signaler à la prise de rendez-vous. À noter que l’utilisation des huiles essentielles est déconseillée aux femmes enceintes ou allaitantes, aux personnes épileptiques, à celles atteintes d’un cancer hormono-dépendant, celles suivant un traitement homéopathique fort, aux personnes hypersensibles, aux personnes ayant des problèmes de peau et aux enfants de moins de 10 ans.",
       },
       {
         label: "Huiles de massage",
@@ -498,11 +498,14 @@ function HomePage() {
               Cathy Bultez — Thérapeute Énergétique · Massothérapeute à Romeries
             </h1>
             <p className="text-base font-bold uppercase tracking-[0.35em] text-ink/70 sm:text-lg">
-              <strong>Thérapeute Énergétique · Massothérapeute</strong>
+              <span className="inline-block rounded-full border border-[#8f6d43]/35 bg-[#d9b97c] px-5 py-2.5 text-[#3e2d23] shadow-[0_8px_24px_rgba(101,77,49,0.12)] sm:px-7 sm:py-3">
+                <strong>Thérapeute Énergétique · Massothérapeute</strong>
+              </span>
             </p>
-            <p className="mx-auto mt-10 max-w-2xl text-base font-light leading-relaxed text-inkmuted sm:text-lg">
-              Accompagnement énergétique et thérapeutique pour apaiser les tensions, libérer les
-              blocages et retrouver un équilibre durable dans votre vie quotidienne.
+            <p className="mx-auto mt-10 max-w-2xl text-center text-base font-light leading-relaxed text-inkmuted sm:text-lg">
+              - Accompagnement énergétique et thérapeutique pour apaiser les tensions,
+              <br />
+              - Libérer les blocages et retrouver un équilibre durable dans votre vie quotidienne.
             </p>
             <p className="mx-auto mt-4 max-w-xl text-base font-light leading-relaxed text-inkmuted sm:text-lg">
               <strong className="font-black tracking-wide text-ink">
