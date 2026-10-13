@@ -35,14 +35,14 @@ function LegalPage() {
           <section>
             <h2 className="font-display text-3xl font-medium text-ink">2. Hébergement</h2>
             <p className="mt-4">
-              Le site est hébergé par Wix.com. Pour plus d'informations :{" "}
+              Le site est hébergé par Vercel. Pour plus d'informations :{" "}
               <a
-                href="https://www.wix.com"
+                href="https://vercel.com"
                 target="_blank"
                 rel="noreferrer"
                 className="text-gold underline underline-offset-4"
               >
-                wix.com
+                vercel.com
               </a>
             </p>
           </section>
